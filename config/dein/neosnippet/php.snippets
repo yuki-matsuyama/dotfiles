@@ -1,0 +1,352 @@
+snippet array_change_key_case
+abbr 配列のすべてのキーの大文字小文字を変更する
+  array_change_key_case(${1:$array}, ${2:$case})
+
+snippet array_chunk
+abbr 配列を分割する
+  array_chunk(${1:$array}, ${2:$size}, ${3:$preserve_keys})
+
+snippet array_column
+abbr 入力配列から単一のカラムの値を返す
+  array_column(${1:$array}, ${2:$column_key}, ${3:$index_key})
+
+snippet array_combine
+abbr  一方の配列をキーとして、もう一方の配列を値として、ひとつの配列を生成する
+  array_combine(${1:$keys}, ${2:$values})
+
+snippet array_count_values
+abbr 配列の値の数を数える
+  array_count_values(${1:$array})
+
+snippet array_diff_assoc
+abbr 追加された添字の確認を含めて配列の差を計算する
+  array_diff_assoc(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_diff_key
+abbr キーを基準にして配列の差を計算する
+  array_diff_key(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_diff_uassoc
+abbr  ユーザーが指定したコールバック関数を利用し、 追加された添字の確認を含めて配列の差を計算する
+  array_diff_uassoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$key_compare_func})
+
+snippet array_diff_ukey
+abbr  キーを基準にし、コールバック関数を用いて配列の差を計算する
+  array_diff_ukey(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$key_compare_func})
+
+snippet array_diff
+abbr 配列の差を計算する
+  array_diff(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_fill_keys
+abbr キーを指定して、配列を値で埋める
+  array_fill_keys(${1:$keys}, ${2:$value})
+
+snippet array_fill
+abbr 配列を指定した値で埋める
+  array_fill(${1:$start_index}, ${2:$num}, ${3:$value})
+
+snippet array_filter
+abbr  コールバック関数を使用して、配列の要素をフィルタリングする
+  array_filter(${1:$array}, ${2:$callback})
+
+snippet array_flip
+abbr 配列のキーと値を反転する
+  array_flip(${1:$array})
+
+snippet array_intersect_assoc
+abbr 追加された添字の確認も含めて配列の共通項を確認する
+  array_intersect_assoc(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_intersect_key
+abbr キーを基準にして配列の共通項を計算する
+  array_intersect_key(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_intersect_uassoc
+abbr 追加された添字の確認も含め、コールバック関数を用いて配列の共通項を確認する
+  array_intersect_uassoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$key_compare_func})
+
+snippet array_intersect_ukey
+abbr キーを基準にし、コールバック関数を用いて配列の共通項を計算する
+  array_intersect_ukey(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$key_compare_func})
+
+snippet array_intersect
+abbr 配列の共通項を計算する
+  array_intersect(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_key_exists
+abbr 指定したキーまたは添字が配列にあるかどうかを調べる
+  array_key_exists(${1:$key}, ${2:$array})
+
+snippet array_keys
+abbr 配列のキーすべて、あるいはその一部を返す
+  array_keys(${1:$array}, ${2:$search_value}, ${3:$strict})
+
+snippet array_map
+abbr 指定した配列の要素にコールバック関数を適用する
+  array_map(${1:$callback}, ${2:$array1}, ${3:$...})
+
+snippet array_merge_recursive
+abbr 二つ以上の配列を再帰的にマージする
+  array_merge_recursive(${1:$array1}, ${2:$...})
+
+snippet array_merge
+abbr ひとつまたは複数の配列をマージする
+  array_merge(${1:$array1}, ${2:$...})
+
+snippet array_multisort
+abbr 複数の多次元の配列をソートする
+  array_multisort(${1:&$array1}, ${2:$array1_sort_order}, ${3:$array1_sort_flags}, ${4:$...})
+
+snippet array_pad
+abbr 指定長、指定した値で配列を埋める
+  array_pad(${1:$array}, ${2:$size}, ${3:$value})
+
+snippet array_pop
+abbr 配列の末尾から要素を取り除く
+  array_pop(${1:&$array})
+
+snippet array_product
+abbr 配列の値の積を計算する
+  array_product(${1:$array})
+
+snippet array_push
+abbr 一つ以上の要素を配列の最後に追加する
+  array_push(${1:&$array}, ${2:$value1}, ${3:$...})
+
+snippet array_rand
+abbr 配列から一つ以上の要素をランダムに取得する
+  array_rand(${1:$array}, ${2:$num})
+
+snippet array_reduce
+abbr コールバック関数を用いて配列を普通の値に変更することにより、配列を再帰的に減らす
+  array_reduce(${1:$array}, ${2:$callback}, ${3:$initial})
+
+snippet array_replace_recursive
+abbr 渡された配列の要素を再帰的に置き換える
+  array_replace_recursive(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_replace
+abbr 渡された配列の要素を置き換える
+  array_replace(${1:$array1}, ${2:$array2}, ${3:$...})
+
+snippet array_reverse
+abbr 要素を逆順にした配列を返す
+  array_reverse(${1:$array}, ${2:$preserve_keys})
+
+snippet array_search
+abbr 指定した値を配列で検索し、見つかった場合に対応するキーを返す
+  array_search(${1:$needle}, ${2:$haystack}, ${3:$strict})
+
+snippet array_shift
+abbr 配列の先頭から要素を一つ取り出す
+  array_shift(${1:&$array})
+
+snippet array_slice
+abbr 配列の一部を展開する
+  array_slice(${1:$array}, ${2:$offset}, ${3:$length}, ${4:$preserve_keys})
+
+snippet array_splice
+abbr 配列の一部を削除し、他の要素で置換する
+  array_splice(${1:&$input}, ${2:$offset}, ${3:$length}, ${4:$replacement})
+
+snippet array_sum
+abbr 配列の中の値の合計を計算する
+  array_sum(${1:$array})
+
+snippet array_udiff_assoc
+abbr データの比較にコールバック関数を用い、追加された添字の確認を含めて配列の差を計算する
+  array_udiff_assoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func})
+
+snippet array_udiff_uassoc
+abbr データと添字の比較にコールバック関数を用い、追加された添字の確認を含めて配列の差を計算する
+  array_udiff_uassoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func}, ${5:$key_compare_func})
+
+snippet array_udiff
+abbr データの比較にコールバック関数を用い、配列の差を計算する
+  array_udiff(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func})
+
+snippet array_uintersect_assoc
+abbr データの比較にコールバック関数を用い、追加された添字の確認も含めて配列の共通項を計算する
+  array_uintersect_assoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func})
+
+snippet array_uintersect_uassoc
+abbr データと添字の比較にコールバック関数を用い、追加された添字の確認も含めて配列の共通項を計算する
+  array_uintersect_uassoc(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func}, ${5:$key_compare_func})
+
+snippet array_uintersect
+abbr データの比較にコールバック関数を用い、配列の共通項を計算する
+  array_uintersect(${1:$array1}, ${2:$array2}, ${3:$...}, ${4:$value_compare_func})
+
+snippet array_unique
+abbr 配列から重複した値を削除する
+  array_unique(${1:$array}, ${2:$sort_flags})
+
+snippet array_unshift
+abbr 一つ以上の要素を配列の最初に加える
+  array_unshift(${1:&$array}, ${2:$value1}, ${3:$...})
+
+snippet array_values
+abbr 配列の全ての値を返す
+  array_values(${1:$array})
+
+snippet array_walk_recursive
+abbr 配列の全ての要素に、ユーザー関数を再帰的に適用する
+  array_walk_recursive(${1:&$array}, ${2:$callback}, ${3:$userdata})
+
+snippet array_walk
+abbr 配列の全ての要素にユーザー関数を適用する
+  array_walk(${1:&$array}, ${2:$callback}, ${3:$userdata})
+
+snippet array
+abbr 配列を生成する
+  array(${1:$...})
+
+snippet base64_decode
+abbr MIME base64 方式によりエンコードされたデータをデコードする
+  base64_decode(${1:$data}, ${2:$strict})
+
+snippet base64_encode
+abbr MIME base64 方式でデータをエンコードする
+  base64_encode(${1:$data})
+
+snippet basename
+abbr パスの最後にある名前の部分を返す
+  basename(${1:$path}, ${2:$suffix})
+
+snippet compact
+abbr 変数名とその値から配列を作成する
+  compact(${1:$varname1}, ${2:$...})
+
+snippet date_format
+abbr DateTime::format()のエイリアス
+  date_format()
+
+snippet date
+abbr ローカルの日付/時刻を書式化する
+  date(${1:$format}, ${2:$timestamp})
+
+snippet is_a
+abbr オブジェクトがこのクラスのものであるか、このクラスをその親クラスのひとつとしているかどうかを調べる
+  is_a(${1:$object}, ${2:$class_name}, ${3:$allow_string})
+
+snippet is_array
+abbr 変数が配列かどうかを検査する
+  is_array(${1:$var})
+
+snippet is_bool
+abbr  変数が boolean であるかを調べる
+  is_bool(${1:$var})
+
+snippet is_callable
+abbr  引数が、関数としてコール可能な構造であるかどうかを調べる
+  is_callable(${1:$name}, ${2:$syntax_only}, ${3:&$callable_name})
+
+snippet is_dir
+abbr ファイルがディレクトリかどうかを調べる
+  is_dir(${1:$filename})
+
+snippet is_double
+abbr is_float()のエイリアス
+  is_double()
+
+snippet is_executable
+abbr ファイルが実行可能かどうかを調べる
+  is_executable(${1:$filename})
+
+snippet is_file
+abbr 通常ファイルかどうかを調べる
+  is_file(${1:$filename})
+
+snippet is_float
+abbr 変数の型が float かどうか調べる
+  is_float(${1:$var})
+
+snippet is_int
+abbr 変数が整数型かどうかを検査する
+  is_int(${1:$var})
+
+snippet is_integer
+abbr is_int()のエイリアス
+  is_integer()
+
+snippet is_link
+abbr ファイルがシンボリックリンクかどうかを調べる
+  is_link(${1:$filename})
+
+snippet is_long
+abbr is_int()のエイリアス
+  is_long()
+
+snippet is_nan
+abbr 値が数値でないかどうかを判定する
+  is_nan(${1:$val})
+
+snippet is_null
+abbr  変数が NULL かどうか調べる
+  is_null(${1:$var})
+
+snippet is_numeric
+abbr  変数が数字または数値形式の文字列であるかを調べる
+  is_numeric(${1:$var})
+
+snippet is_resource
+abbr  変数がリソースかどうかを調べる
+  is_resource(${1:$var})
+
+snippet is_string
+abbr 変数の型が文字列かどうかを調べる
+  is_string(${1:$var})
+
+snippet is_subclass_of
+abbr あるオブジェクトが指定したクラスのサブクラスに属するかどうかを調べる
+  is_subclass_of(${1:$object}, ${2:$class_name}, ${3:$allow_string})
+
+snippet is_tainted
+abbr 文字列が汚染されているかどうかを調べる
+  is_tainted(${1:$string})
+
+snippet is_uploaded_file
+abbr HTTP POST でアップロードされたファイルかどうかを調べる
+  is_uploaded_file(${1:$filename})
+
+snippet is_writable
+abbr ファイルが書き込み可能かどうかを調べる
+  is_writable(${1:$filename})
+
+snippet is_writeable
+abbr is_writable()のエイリアス
+  is_writeable()
+
+snippet isset
+abbr 変数がセットされていること、そして NULL でないことを検査する
+  isset(${1:$var}, ${2:$...})
+
+snippet list
+abbr 配列と同様の形式で、複数の変数への代入を行う
+  list(${1:$var1}, ${2:$...})
+
+
+snippet localtime
+abbr ローカルタイムを得る
+  localtime(${1:$timestamp}, ${2:$is_associative})
+
+snippet max
+abbr 最大値を返す
+  max(${1:$values})
+
+snippet strftime
+abbr  ロケールの設定に基づいてローカルな日付・時間をフォーマットする
+  strftime(${1:$format}, ${2:$timestamp})
+
+snippet strlen
+abbr 文字列の長さを得る
+  strlen(${1:$string})
+
+snippet strnatcasecmp
+abbr "自然順"アルゴリズムにより大文字小文字を区別しない文字列比較を行う
+  strnatcasecmp(${1:$str1}, ${2:$str2})
+
+snippet time
+abbr 現在の Unix タイムスタンプを返す
+  time()

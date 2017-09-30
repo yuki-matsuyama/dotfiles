@@ -1,0 +1,75 @@
+[[plugins]] #deinを改めてプラグインとして使用する
+repo = 'Shougo/dein.vim' 
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+nnoremap <C-o><C-R> :GoRun<CR>
+'''
+
+[[plugins]]#emmet vim 
+repo = 'mattn/emmet-vim'
+
+#[[plugins]] #??????? OS 依存性あり、特にwindowsは注意
+#repo = 'Shougo/vimproc.vim' 
+
+[[plugins]] #vim-smartinupt とvim-endwiseを合わせた、conflictの危険あり
+repo = 'cohama/vim-smartinput-endwise'
+
+[[plugins]] #denite のソース
+repo = 'Shougo/neomru.vim'
+
+[[plugins]] #vim color scheme TODO カラースキームの変更
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = "Haron-Prime/Antares"
+
+# [[plugins]] #windowないの文字列検索 TODO incsearchとの連携 https://github.com/easymotion/vim-easymotion
+# repo = 'easymotion/vim-easymotion'
+
+[[plugins]] #smart input TODO 要カスタマイズ
+repo = 'kana/vim-smartinput'
+
+[[plugins]] #visualモードで選択しているものを囲むもしくは削除するため
+repo = 'tpope/vim-surround'
+
+[[plugins]] #コメントを行う
+repo = 'tpope/vim-commentary'
+
+[[plugins]] #git diff を表示する
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]] #git diff を表示する
+repo = 'tpope/vim-fugitive'
+
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+
+# [[plugins]]
+# repo ='scrooloose/nerdtree'
+
+# [[plugins]]
+# repo = 'jistr/vim-nerdtree-tabs'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+

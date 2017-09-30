@@ -4,14 +4,20 @@ link:
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
 	ln -sf $(HOME)/dotfiles/tigrc $(HOME)/.tigrc
 	ln -sf $(HOME)/dotfiles/tmux.conf $(HOME)/.tmux.conf
-	ln -sf $(HOME)/dotfiles/vim $(HOME)/.vim
 	ln -sf $(HOME)/dotfiles/vimrc $(HOME)/.vimrc
 	ln -sf $(HOME)/dotfiles/zshenv $(HOME)/.zshenv
+	# ln -sf $(HOME)/dotfiles/zpreztorc $(HOME)/.zpreztorc
 	ln -sf $(HOME)/dotfiles/zshrc $(HOME)/.zshrc
+	ln -sf $(HOME)/dotfiles/config $(HOME)/.config
 
 anyenv:
-	git clone https://github.com/riywo/anyenv ~/.anyenv
-	exec $(SHELL) -l
+	if [ -d "~/.anyenv" ]; then \
+		git clone https://github.com/riywo/anyenv ~/.anyenv; \
+	fi
+	chmod +x anyenv.sh
+	./anyenv.sh
+
+anyenv-install:
 	anyenv install rbenv
 	anyenv install plenv
 	anyenv install pyenv
@@ -24,20 +30,19 @@ anyenv:
 	pyenv install 3.6.0
 	ndenv install 6.9.4
 	goenv install 1.8
+	rbenv global 2.4.0
+	plenv global 5.25.9
+	pyenv global 2.7.13
+	pyenv global 3.6.0
+	ndenv global 6.9.4
+	goenv global 1.8
 
 setup:
 	# homebrew
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	# zplug
-	curl -sL zplug.sh/installer | zsh
-	# prezto
-	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${HOME}/.zprezto"
-	setopt EXTENDED_GLOB
-	for rcfile in "${HOME}"/.zprezto/runcoms/^README.md(.N); do
-	  ln -s "$rcfile" "${HOME}/.${rcfile:t}"
-	done
-	# current shell
-	chsh -s /bin/zsh
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	plugins=(git)
 
 brew:
 	brew update
