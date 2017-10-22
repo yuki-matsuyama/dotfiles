@@ -1,8 +1,7 @@
 #OSごとにファイルを読み込む
 #aliasの設定
-if [ -f ~/.oh-my-zsh/templates/zshrc.zsh-template ]
-then
-  source ~/.oh-my-zsh/templates/zshrc.zsh-template
+if [ -f ~/.bash_profile ]; then
+  . ~/.bash_profile
 fi
 alias vi=/usr/local/bin/vim
 alias search="find . -type f -print | xargs grep --color=auto -n "
@@ -56,7 +55,7 @@ fstash() {
 }
 
 fmake(){
-  cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf | xargs -o make
+  cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| peco | xargs -o make
 }
 
 case ${OSTYPE} in
@@ -68,3 +67,4 @@ case ${OSTYPE} in
     ;;
 esac
 #一番最初に修正
+export TOOLS_DIR=$HOME/dotfiles

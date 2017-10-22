@@ -1,4 +1,4 @@
-link:
+link: 
 	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
 	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
@@ -8,7 +8,10 @@ link:
 	ln -sf $(HOME)/dotfiles/zshenv $(HOME)/.zshenv
 	# ln -sf $(HOME)/dotfiles/zpreztorc $(HOME)/.zpreztorc
 	ln -sf $(HOME)/dotfiles/zshrc $(HOME)/.zshrc
+	ln -sf $(HOME)/dotfiles/bashrc $(HOME)/.bashrc
 	ln -sf $(HOME)/dotfiles/config $(HOME)/.config
+	cat $(HOME)/dotfiles/env.sh >> bashrc
+	cat $(HOME)/dotfiles/env.sh >> zshrc
 
 anyenv:
 	if [ -d "~/.anyenv" ]; then \
@@ -43,6 +46,10 @@ setup:
 	# zplug
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	plugins=(git)
+
+install-bashit:
+	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+	sh ~/.bash_it/install.sh
 
 brew:
 	brew update
