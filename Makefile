@@ -44,6 +44,9 @@ install-brew:
 	# homebrew
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+install-dstat:
+	sudo apt-get install dstat
+
 install-ohmyzsh:
 	# zplug
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -77,6 +80,8 @@ go:
 	# glide
 	# dep
 	#
+#TODO
+make-keys:
 
 prebench:
 	chmod +x $(HOME)/dotfiles/prebench.sh
