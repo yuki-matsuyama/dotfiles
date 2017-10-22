@@ -99,23 +99,29 @@ install: install-alp install-myprofiler install-pt-query-digest install-peco
 
 install-myprofiler: 
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
-	tar xf myprofiler.linux_amd64.tar.gz -C ${TOOLS_DIR}
+	tar xf myprofiler.linux_amd64.tar.gz -C $(HOME)/dotfiles/bin
 	rm myprofiler.linux_amd64.tar.gz
 
 install-pt-query-digest:
-	wget percona.com/get/pt-query-digest -P ${TOOLS_DIR}
-	chmod +x ./pt-query-digest
+	wget percona.com/get/pt-query-digest -P $(HOME)/dotfiles/bin
+	chmod +x $(HOME)/dotfiles/bin/pt-query-digest
 
 install-alp:
 	wget https://github.com/tkuchiki/alp/releases/download/v0.3.1/alp_linux_amd64.zip
-	unzip alp_linux_amd64.zip -d ${TOOLS_DIR}
+	unzip alp_linux_amd64.zip -d $(HOME)/dotfiles/bin
 	rm alp_linux_amd64.zip
 
 install-peco:
 	wget https://github.com/peco/peco/releases/download/v0.5.1/peco_linux_arm.tar.gz
 	tar -xzf peco_linux_arm.tar.gz
 	rm peco_linux_arm.tar.gz
-	mv ./peco_linux_arm/peco ${TOOLS_DIR}
+	mv ./peco_linux_arm/peco $(HOME)/dotfiles/bin
+
+install-fzf:
+	wget https://github.com/junegunn/fzf-bin/releases/download/0.17.1/fzf-0.17.1-darwin_386.tgz
+	tar -xzf fzf-0.17.1-darwin_386.tgz
+	rm fzf-0.17.1-darwin_386.tgz
+	mv ./fzf $(HOME)/dotfiles/bin
 
 profile: profile-mysql profile-nginx
 
@@ -193,7 +199,7 @@ restore-mysql:
 restore-mysql-all:
 	mysql -u root < full_backup.sql
 
-monitor-cpu:
+monitor-top:
 	top -c
 
 # retore-psql:
