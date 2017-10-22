@@ -20,3 +20,4 @@ export DB_NAME=isuda
 
 export NGINX_ERROR_LOG=/var/log/nginx/error.log
 export MYSQL_ERROR_LOG=/var/log/mysql/error.log
+export PATH=$HOME/dotfiles/bin/:$PATH

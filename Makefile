@@ -1,4 +1,4 @@
-link: 
+link: install-bashit
 	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
 	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
@@ -13,14 +13,14 @@ link:
 	cat $(HOME)/dotfiles/env.sh >> bashrc
 	cat $(HOME)/dotfiles/env.sh >> zshrc
 
-anyenv:
+install-anyenv:
 	if [ -d "~/.anyenv" ]; then \
 		git clone https://github.com/riywo/anyenv ~/.anyenv; \
 	fi
 	chmod +x anyenv.sh
 	./anyenv.sh
 
-anyenv-install:
+install-anyenvs:
 	anyenv install rbenv
 	anyenv install plenv
 	anyenv install pyenv
@@ -40,9 +40,11 @@ anyenv-install:
 	ndenv global 6.9.4
 	goenv global 1.8
 
-setup:
+install-brew:
 	# homebrew
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+install-ohmyzsh:
 	# zplug
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	plugins=(git)
@@ -51,7 +53,7 @@ install-bashit:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	sh ~/.bash_it/install.sh
 
-brew:
+install-brews: install-brew
 	brew update
 	brew upgrade
 	brew install ag
@@ -91,7 +93,7 @@ journal-mysql:
 journal-postgresql:
 	sudo journalctl -f -u  postgresql
 
-install: install-alp install-myprofiler install-pt-query-digest install-peco install-fzf
+install: install-alp install-myprofiler install-pt-query-digest install-peco install-fzf install-bashit install-ohmyzsh
 
 install-myprofiler: 
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
@@ -114,9 +116,10 @@ install-peco:
 	mv ./peco_linux_arm/peco $(HOME)/dotfiles/bin
 
 install-fzf:
-	wget https://github.com/junegunn/fzf-bin/releases/download/0.17.1/fzf-0.17.1-darwin_386.tgz
-	tar -xzf fzf-0.17.1-darwin_386.tgz
-	rm fzf-0.17.1-darwin_386.tgz
+	wget https://github.com/junegunn/fzf-bin/releases/download/0.17.1/fzf-0.17.1-linux_amd64.tgz
+	tar -xzf fzf-0.17.1-linux_amd64.tgz
+	rm fzf-0.17.1-linux_amd64.tgz
+	chmod +x ./fzf
 	mv ./fzf $(HOME)/dotfiles/bin
 
 profile: profile-mysql profile-nginx
