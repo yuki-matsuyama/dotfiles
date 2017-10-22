@@ -1,0 +1,58 @@
+[mysqld]
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+basedir         = /usr
+datadir         = /var/lib/mysql
+tmpdir          = /tmp
+lc-messages-dir = /usr/share/mysql
+skip-external-locking
+bind-address            = 127.0.0.1
+max_allowed_packet      = 16M
+log_error = /var/log/mysql/error.log
+innodb_buffer_pool_size = 5G
+innodb_flush_log_at_trx_commit = 0
+innodb_flush_method=O_DIRECT
+
+skip-external-locking
+key_buffer_size = 32M
+max_allowed_packet = 8M
+table_open_cache = 256
+max_connections = 1024
+max_connect_errors = 10000
+sort_buffer_size = 1M
+read_buffer_size = 1M
+myisam_sort_buffer_size = 1M
+thread_cache_size = 256
+query_cache_size = 0M
+query_cache_type = 0
+tmp_table_size = 64M
+max_heap_table_size = 64M
+skip-name-resolve
+character-set-server=utf8mb4
+default-storage-engine=InnoDB
+
+slow_query_log = 1
+slow_query_log_file = /var/tmp/slow_query.log
+long_query_time = 0
+log_queries_not_using_indexes = 1
+
+innodb_strict_mode
+innodb_data_file_path = ibdata1:10M:autoextend
+innodb_data_home_dir = /var/lib/mysql
+innodb_file_format = Barracuda
+innodb_file_per_table
+innodb_buffer_pool_size = 1G
+innodb_write_io_threads = 2
+innodb_read_io_threads = 2
+innodb_thread_concurrency = 4
+innodb_flush_log_at_trx_commit = 2
+innodb_log_file_size = 128M
+innodb_log_buffer_size = 16M
+innodb_log_files_in_group = 2
+innodb_flush_method=O_DIRECT
+innodb_lock_wait_timeout = 120
+loose-innodb_large_prefix = 1
+loose-innodb_print_all_deadlocks = 1
+

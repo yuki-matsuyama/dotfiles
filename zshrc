@@ -30,6 +30,7 @@ fgco() {
 fssh() {
   ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | xargs -o ssh
 }
+
 fstash() {
   local out q k sha
   while out=$(
@@ -53,6 +54,11 @@ fstash() {
     fi
   done
 }
+
+fmake(){
+  cat Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| peco | xargs -o make
+}
+
 case ${OSTYPE} in
   darwin*)
     # ここに Mac 向けの設定

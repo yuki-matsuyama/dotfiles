@@ -71,4 +71,132 @@ go:
 
 
 
-.PHONY: link
+links:
+	ln -sf $(TOOLS_DIR)/Makefile $(HOME)/Makefile
+
+build:
+	cd /home/isucon/private_isu/webapp/golang && git pull && make restart && make profile && sudo systemctl restart isu-go
+
+prebench:
+	chmod +x $(TOOLS_DIR)/prebench.sh
+	$(TOOLS_DIR)/prebench.sh
+
+bench:
+	cd /home/isucon/go/src/github.com/isucon/isucon6-qualify/bench/isucon6q && ./isucon6q-bench
+
+journal: journal-mysql journal-nginx
+
+journal-nginx:
+	sudo journalctl -f -u nginx
+
+journal-mysql:
+	sudo journalctl -f -u mysql
+
+# journal-postgresql:
+# 	sudo journalctl -f -u  postgresql
+
+install: install-alp install-myprofiler install-pt-query-digest install-peco
+
+install-myprofiler: 
+	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
+	tar xf myprofiler.linux_amd64.tar.gz -C ${TOOLS_DIR}
+	rm myprofiler.linux_amd64.tar.gz
+
+install-pt-query-digest:
+	wget percona.com/get/pt-query-digest -P ${TOOLS_DIR}
+	chmod +x ./pt-query-digest
+
+install-alp:
+	wget https://github.com/tkuchiki/alp/releases/download/v0.3.1/alp_linux_amd64.zip
+	unzip alp_linux_amd64.zip -d ${TOOLS_DIR}
+	rm alp_linux_amd64.zip
+
+install-peco:
+	wget https://github.com/peco/peco/releases/download/v0.5.1/peco_linux_arm.tar.gz
+	tar -xzf peco_linux_arm.tar.gz
+	rm peco_linux_arm.tar.gz
+	mv ./peco_linux_arm/peco ${TOOLS_DIR}
+
+profile: profile-mysql profile-nginx
+
+pprof:
+	go tool pprof -seconds=60 /home/isucon/private_isu/webapp/golang/app http://127.0.0.1:6060/debug/pprof/profile
+
+profile-app:
+	go tool pprof /home/isucon/webapp/go/isuda ${APP_LOG}
+
+watch-mysql:
+	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/setting.sql
+	${TOOLS_DIR}/myprofiler -host=localhost -user=${DB_USER} -password=${DB_PASS} -interval=0.2
+
+watch-nginx-error:
+	sudo tail -f $(NGINX_ERROR_LOG) 
+
+watch-mysql-error:
+	sudo tail -f $(MYSQL_ERROR_LOG)
+
+watch-cpu:
+	top -c
+
+check-fs:
+	df -Th
+
+check-dbsize:
+	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/dbsize.sql
+
+check-cachehit:
+	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/cachehit.sql
+
+check-ps:
+	ps -aufx
+
+check-tcp:
+	netstat -tnl
+
+profile-mysql:
+	sudo ${TOOLS_DIR}/pt-query-digest  ${MYSQL_SLOW_LOG} > ${HOME}/mysql_profile.log
+
+profile-nginx:
+	sudo ${TOOLS_DIR}/alp -f ${NGINX_ACCESS_LOG} --aggregates "/keyword/\.*" > ${HOME}/nginx_profile.log
+
+# restartさせるserviceの追加
+restart: restart-mysql restart-nginx
+
+restart-mysql:
+	sudo /etc/init.d/mysql restart
+
+restart-nginx:
+	sudo /etc/init.d/nginx restart
+
+# restart-postgresql:
+# 	sudo /etc/init.d/postgresql restart
+
+# backupするdata storeの選択
+backup: backup-mysql 
+
+# TODO 最初の一回だけのものを保持する
+backup-mysql:
+	mysqldump -u ${DB_USER} -p${DB_PASS}  > ${DB_NAME}.sql
+
+backup-mysql-all:
+	mysqldump -u root -x --all-databases > full_backup.sql
+
+# backup-postgresql:
+# 	pg_dump isuconp > backup_psql.sql
+
+# restoreさせるdata storeの選択
+restore: restore-mysql
+
+restore-mysql:
+	mysql -u ${DB_USER} -p{$DB_PASS} < ${DATABASE}.sql
+
+restore-mysql-all:
+	mysql -u root < full_backup.sql
+
+monitor-cpu:
+	top -c
+
+# retore-psql:
+# 	psql restore < backup_psql.sql
+
+.PHONY: log
