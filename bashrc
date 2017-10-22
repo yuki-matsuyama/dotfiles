@@ -55,7 +55,7 @@ fstash() {
 }
 
 fmake(){
-  cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| peco | xargs -o make
+  cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| peco | xargs make
 }
 
 case ${OSTYPE} in

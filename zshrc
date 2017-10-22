@@ -28,7 +28,7 @@ fgco() {
 }
 
 fssh() {
-  ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | xargs -o ssh
+  ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | xargs ssh
 }
 
 fstash() {
