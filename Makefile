@@ -69,20 +69,9 @@ go:
 	# dep
 	#
 
-
-
-links:
-	ln -sf $(TOOLS_DIR)/Makefile $(HOME)/Makefile
-
-build:
-	cd /home/isucon/private_isu/webapp/golang && git pull && make restart && make profile && sudo systemctl restart isu-go
-
 prebench:
-	chmod +x $(TOOLS_DIR)/prebench.sh
-	$(TOOLS_DIR)/prebench.sh
-
-bench:
-	cd /home/isucon/go/src/github.com/isucon/isucon6-qualify/bench/isucon6q && ./isucon6q-bench
+	chmod +x $(HOME)/dotfiles/prebench.sh
+	$(HOME)/dotfiles/prebench.sh
 
 journal: journal-mysql journal-nginx
 
@@ -92,10 +81,10 @@ journal-nginx:
 journal-mysql:
 	sudo journalctl -f -u mysql
 
-# journal-postgresql:
-# 	sudo journalctl -f -u  postgresql
+journal-postgresql:
+	sudo journalctl -f -u  postgresql
 
-install: install-alp install-myprofiler install-pt-query-digest install-peco
+install: install-alp install-myprofiler install-pt-query-digest install-peco install-fzf
 
 install-myprofiler: 
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
@@ -132,8 +121,7 @@ profile-app:
 	go tool pprof /home/isucon/webapp/go/isuda ${APP_LOG}
 
 watch-mysql:
-	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/setting.sql
-	${TOOLS_DIR}/myprofiler -host=localhost -user=${DB_USER} -password=${DB_PASS} -interval=0.2
+	myprofiler -host=localhost -user=${DB_USER} -password=${DB_PASS}
 
 watch-nginx-error:
 	sudo tail -f $(NGINX_ERROR_LOG) 
@@ -160,10 +148,10 @@ check-tcp:
 	netstat -tnl
 
 profile-mysql:
-	sudo ${TOOLS_DIR}/pt-query-digest  ${MYSQL_SLOW_LOG} > ${HOME}/mysql_profile.log
+	sudo pt-query-digest  ${MYSQL_SLOW_LOG} > ${HOME}/mysql_profile.log
 
 profile-nginx:
-	sudo ${TOOLS_DIR}/alp -f ${NGINX_ACCESS_LOG} --aggregates "/keyword/\.*" > ${HOME}/nginx_profile.log
+	sudo alp -f ${NGINX_ACCESS_LOG} --aggregates "/keyword/\.*" > ${HOME}/nginx_profile.log
 
 # restartさせるserviceの追加
 restart: restart-mysql restart-nginx
@@ -199,7 +187,7 @@ restore-mysql:
 restore-mysql-all:
 	mysql -u root < full_backup.sql
 
-monitor-top:
+watch-top:
 	top -c
 
 # retore-psql:
