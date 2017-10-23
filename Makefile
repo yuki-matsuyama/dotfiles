@@ -1,4 +1,4 @@
-link: install-bashit
+link: 
 	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
 	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
@@ -45,7 +45,9 @@ install-brew:
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 install-dstat:
-	sudo apt-get install dstat
+	wget https://github.com/dagwieers/dstat/archive/0.7.3.tar.gz
+	tar xzf 0.7.3.tar.gz
+	mv dstat-0.7.3/dstat $(HOME)/dotfiles/bin
 
 install-ohmyzsh:
 	# zplug
@@ -56,6 +58,12 @@ install-bashit:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	sh ~/.bash_it/install.sh
 
+install-htop:
+	wget http://hisham.hm/htop/releases/2.0.0/htop-2.0.0.tar.gz
+	tar xzvf htop-2.0.0.tar.gz
+	cd htop-2.0.0 && ./configure && make && sudo make install
+	rm -rf htop-2.0.0
+	
 install-brews: install-brew
 	brew update
 	brew upgrade
@@ -69,6 +77,7 @@ install-brews: install-brew
 	brew install tree
 	brew install wget
 	brew install zsh
+	brew install htop
 	# フォント
 	brew cask install font-myrica
 	brew cask install font-myricam
@@ -144,8 +153,8 @@ watch-nginx-error:
 watch-mysql-error:
 	sudo tail -f $(MYSQL_ERROR_LOG)
 
-watch-cpu:
-	top -c
+watch-top:
+	htop 
 
 check-fs:
 	df -Th
