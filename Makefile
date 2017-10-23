@@ -56,9 +56,7 @@ install-dstat:
 	mv dstat-0.7.3/dstat $(HOME)/dotfiles/bin
 
 install-ohmyzsh:
-	# zplug
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	plugins=(git)
+	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" && plugins=(git)
 
 install-bashit:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
