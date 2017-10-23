@@ -6,6 +6,7 @@ then
 fi
 alias vi=/usr/local/bin/vim
 alias search="find . -type f -print | xargs grep --color=auto -n "
+alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
 plugins=(git bundler osx rake ruby)
 #shellscript の実行
 fkill() {

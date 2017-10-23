@@ -25,16 +25,20 @@ install-anyenvs:
 	anyenv install plenv
 	anyenv install pyenv
 	anyenv install ndenv
+	anyenv install phpenv
 	anyenv install luaenv
 	anyenv install goenv
+	exec $SHELL -l
 	rbenv install 2.4.0
 	plenv install 5.25.9
 	pyenv install 2.7.13
 	pyenv install 3.6.0
 	ndenv install 6.9.4
 	goenv install 1.8
+	phpenv install 7.0.2
 	rbenv global 2.4.0
 	plenv global 5.25.9
+	phpenv global 7.0.2
 	pyenv global 2.7.13
 	pyenv global 3.6.0
 	ndenv global 6.9.4
@@ -45,6 +49,10 @@ install-tmux-reahat:
 
 install-tmux-debian:
 	sudo apt-get install tmux
+
+install-composer:
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar $(HOME)/dotfiles/bin/composer
 
 install-brew:
 	# homebrew
