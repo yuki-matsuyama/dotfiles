@@ -40,6 +40,12 @@ install-anyenvs:
 	ndenv global 6.9.4
 	goenv global 1.8
 
+install-tmux-reahat:
+	sudo yum install tmux
+
+install-tmux-debian:
+	sudo apt-get install tmux
+
 install-brew:
 	# homebrew
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -156,6 +162,9 @@ watch-mysql-error:
 watch-top:
 	htop 
 
+watch-dstat:
+	dstat
+
 check-fs:
 	df -Th
 
@@ -210,9 +219,6 @@ restore-mysql:
 
 restore-mysql-all:
 	mysql -u root < full_backup.sql
-
-watch-top:
-	top -c
 
 # retore-psql:
 # 	psql restore < backup_psql.sql
