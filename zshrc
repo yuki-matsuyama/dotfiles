@@ -7,6 +7,7 @@ fi
 alias vi=/usr/local/bin/vim
 alias search="find . -type f -print | xargs grep --color=auto -n "
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
+alias work="${HOME}/workspace"
 plugins=(git bundler osx rake ruby)
 #shellscript の実行
 fkill() {
@@ -91,4 +92,4 @@ export DB_NAME=isuda
 
 export NGINX_ERROR_LOG=/var/log/nginx/error.log
 export MYSQL_ERROR_LOG=/var/log/mysql/error.log
-export PATH=$HOME/dotfiles/bin/:$PATH
+export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
