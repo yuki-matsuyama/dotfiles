@@ -8,7 +8,10 @@ alias vi=/usr/local/bin/vim
 alias search="find . -type f -print | xargs grep --color=auto -n "
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
 alias work="${HOME}/workspace"
-plugins=(git bundler osx rake ruby)
+alias gowork="/Users/yukimatsuyama/workspace/go/src"
+alias vuework="/Users/yukimatsuyama/workspace/vue-spa"
+alias dt='${HOME}/dotfiles'
+plugins=(git)
 #shellscript の実行
 fkill() {
   local pid

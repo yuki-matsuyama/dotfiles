@@ -32,6 +32,7 @@ install-anyenvs:
 	rbenv install 2.4.0
 	plenv install 5.25.9
 	pyenv install 2.7.13
+	pyenv install 2.7.9
 	pyenv install 3.6.0
 	ndenv install 6.9.4
 	goenv install 1.8
@@ -39,10 +40,25 @@ install-anyenvs:
 	rbenv global 2.4.0
 	plenv global 5.25.9
 	phpenv global 7.0.2
-	pyenv global 2.7.13
+	pyenv global 2.7.9
 	pyenv global 3.6.0
 	ndenv global 6.9.4
 	goenv global 1.8
+	rbenv rehash 2.4.0
+	plenv rehash 5.25.9
+	phpenv rehash 7.0.2
+	pyenv rehash 2.7.9
+	pyenv rehash 3.6.0
+	ndenv rehash 6.9.4
+	goenv rehash 1.8
+
+install-cloudtool:
+	wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
+	tar -xzf google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
+	./google-cloud-sdk/install.sh
+	./google-cloud-sdk/bin/gcloud init
+	./google-cloud-sdk/bin/gcloud components install app-engine-go
+	chmod -R +x ./google-cloud-sdk/platform/google_appengine/
 
 install-tmux-reahat:
 	sudo yum install tmux

@@ -44,6 +44,7 @@ if dein#load_state(s:dein_cache_dir)
     call dein#add('scrooloose/nerdtree')
     call dein#add('posva/vim-vue')
     call dein#add('heavenshell/vim-jsdoc')
+    call dein#add('bronson/vim-trailing-whitespace')
     if has('nvim')
       "deinのプラグイン設定ファイル$HOME/.config/dein/dein.toml
       call dein#load_toml(s:toml_dir . '/denite.toml', {'lazy': 1})
@@ -352,7 +353,7 @@ let g:quickrun_config = {
 augroup Vimrc
   autocmd!
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END 
+augroup END
 
 " Enable snipMate compatibility feature.
 
@@ -372,3 +373,27 @@ endif
 autocmd VimEnter * NeoComplCacheEnable " Enable NeoComplete at startup"
 " autocmd VimEnter * NeoCompleteEnable " Enable NeoComplete at startup"
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+autocmd BufWritePre * :%s/\s\+$//ge
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+function! UnintentionalComment()
+    highlight UnintentionalComment cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
+
+augroup UnintentionalCommentHighlight
+  autocmd!
+  autocmd ColorScheme       * call UnintentionalComment()
+  autocmd VimEnter,WinEnter * match UnintentionalComment /\/\/.*private/
+augroup END
+call UnintentionalComment()
