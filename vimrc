@@ -45,6 +45,7 @@ if dein#load_state(s:dein_cache_dir)
     call dein#add('posva/vim-vue')
     call dein#add('heavenshell/vim-jsdoc')
     call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('vim-scripts/PDV--phpDocumentor-for-Vim')
     if has('nvim')
       "deinのプラグイン設定ファイル$HOME/.config/dein/dein.toml
       call dein#load_toml(s:toml_dir . '/denite.toml', {'lazy': 1})
@@ -148,8 +149,8 @@ set wrap
 set confirm
 set clipboard=unnamed
 set modelines=0
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set number
 set ruler
@@ -397,3 +398,4 @@ augroup UnintentionalCommentHighlight
   autocmd VimEnter,WinEnter * match UnintentionalComment /\/\/.*private/
 augroup END
 call UnintentionalComment()
+nnoremap <Leader>pd :call PhpDocSingle()<CR>

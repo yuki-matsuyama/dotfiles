@@ -1,4 +1,4 @@
-link: 
+link:
 	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
 	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
@@ -9,7 +9,7 @@ link:
 	# ln -sf $(HOME)/dotfiles/zpreztorc $(HOME)/.zpreztorc
 	ln -sf $(HOME)/dotfiles/zshrc $(HOME)/.zshrc
 	ln -sf $(HOME)/dotfiles/bashrc $(HOME)/.bashrc
-	ln -sf $(HOME)/dotfiles/config $(HOME)/.config
+	ln -sf $(HOME)/dotfiles/config/dein $(HOME)/.config/dein
 	cat $(HOME)/dotfiles/env.sh >> bashrc
 	cat $(HOME)/dotfiles/env.sh >> zshrc
 
@@ -91,7 +91,7 @@ install-htop:
 	tar xzvf htop-2.0.0.tar.gz
 	cd htop-2.0.0 && ./configure && make && sudo make install
 	rm -rf htop-2.0.0
-	
+
 install-brews: install-brew
 	brew update
 	brew upgrade
@@ -112,6 +112,9 @@ install-brews: install-brew
 	# Remove outdated versions
 	brew cleanup
 
+install-memcached-tool:
+	git clone https://github.com/memcached/memcached.git ${HOME}/dotfiles/bin/memcached
+	cp ${HOME}/dotfiles/bin/memcached/scripts/* ${HOME}/dotfiles/bin/
 go:
 	# direnv
 	# glide
@@ -137,7 +140,7 @@ journal-postgresql:
 
 install: install-alp install-myprofiler install-pt-query-digest install-peco install-fzf install-bashit install-ohmyzsh
 
-install-myprofiler: 
+install-myprofiler:
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
 	tar xf myprofiler.linux_amd64.tar.gz -C $(HOME)/dotfiles/bin
 	rm myprofiler.linux_amd64.tar.gz
@@ -176,13 +179,13 @@ watch-mysql:
 	myprofiler -host=localhost -user=${DB_USER} -password=${DB_PASS}
 
 watch-nginx-error:
-	sudo tail -f $(NGINX_ERROR_LOG) 
+	sudo tail -f $(NGINX_ERROR_LOG)
 
 watch-mysql-error:
 	sudo tail -f $(MYSQL_ERROR_LOG)
 
 watch-top:
-	htop 
+	htop
 
 watch-dstat:
 	dstat
@@ -221,7 +224,7 @@ restart-nginx:
 # 	sudo /etc/init.d/postgresql restart
 
 # backupするdata storeの選択
-backup: backup-mysql 
+backup: backup-mysql
 
 # TODO 最初の一回だけのものを保持する
 backup-mysql:
@@ -241,6 +244,12 @@ restore-mysql:
 
 restore-mysql-all:
 	mysql -u root < full_backup.sql
+
+dump-memcache:
+	memcached-tool localhost:11211 dump
+
+dump-tcpdump:
+	sudo tcpdump -A port 8080
 
 # retore-psql:
 # 	psql restore < backup_psql.sql
