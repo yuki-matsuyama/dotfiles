@@ -1,4 +1,23 @@
+TOOLS_DIR=$(HOME)/dotfiles
+NGINX_ACCESS_LOG='/var/log/nginx/access_log'
+NGINX_ERROR_LOG='/var/log/nginx/error_log'
+MYSQL_SLOW_LOG='/var/log/mysql/'
+MYSQL_ERROR_LOG="/var/log/mysql/mysql_error_log"
+BACKUP_SQLS='$(HOME)/dotfiles/sql/backup'
+DB_USER='isucon'
+DB_PASS='isucon'
+DB_NAME='isucon'
+RUBY_VERSION='2.4.0'
+GO_VERSION='1.8'
+PHP_VERSION='7.0.2'
+NODE_VERSION='8.7.0'
+PERL_VERSION='5.25.9'
+PYTHON_VERSION='3.6.0'
+PLATFORM='Darwin'
+
 link:
+	chmod +x $(HOME)/dotfiles/scripts/prelink.sh
+	$(HOME)/dotfiles/scripts/prelink.sh
 	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
 	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
 	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
@@ -10,15 +29,15 @@ link:
 	ln -sf $(HOME)/dotfiles/zshrc $(HOME)/.zshrc
 	ln -sf $(HOME)/dotfiles/bashrc $(HOME)/.bashrc
 	ln -sf $(HOME)/dotfiles/config/dein $(HOME)/.config/dein
-	cat $(HOME)/dotfiles/env.sh >> bashrc
-	cat $(HOME)/dotfiles/env.sh >> zshrc
+	cat $(HOME)/dotfiles/scripts/env.sh >> bashrc
+	cat $(HOME)/dotfiles/scripts/env.sh >> zshrc
 
 install-anyenv:
-	if [ -d "~/.anyenv" ]; then \
+	if [ ! -d "~/.anyenv" ]; then \
 		git clone https://github.com/riywo/anyenv ~/.anyenv; \
+		chmod +x $(HOME)/dotfiles/scripts/anyenv.sh
+		$(HOME)/dotfiles/scripts/anyenv.sh
 	fi
-	chmod +x anyenv.sh
-	./anyenv.sh
 
 install-anyenvs:
 	anyenv install rbenv
@@ -29,28 +48,27 @@ install-anyenvs:
 	anyenv install luaenv
 	anyenv install goenv
 	exec $SHELL -l
-	rbenv install 2.4.0
-	plenv install 5.25.9
-	pyenv install 2.7.13
+	rbenv install $(RUBY_VERSION)
+	plenv install $(PERL_VERSION)
 	pyenv install 2.7.9
-	pyenv install 3.6.0
-	ndenv install 6.9.4
-	goenv install 1.8
-	phpenv install 7.0.2
-	rbenv global 2.4.0
-	plenv global 5.25.9
-	phpenv global 7.0.2
+	pyenv install $(PYTHON_VERSION)
+	ndenv install $(NODE_VERSION)
+	goenv install $(GO_VERSION)
+	phpenv install $(PHP_VERSION)
+	rbenv global $(RUBY_VERSION)
+	plenv global $(PERL_VERSION)
+	phpenv global $(PHP_VERSION)
 	pyenv global 2.7.9
-	pyenv global 3.6.0
-	ndenv global 6.9.4
-	goenv global 1.8
-	rbenv rehash 2.4.0
-	plenv rehash 5.25.9
-	phpenv rehash 7.0.2
+	pyenv global $(PYTHON_VERSION)
+	ndenv global $(NODE_VERSION)
+	goenv global $(GO_VERSION)
+	rbenv rehash $(RUBY_VERSION)
+	plenv rehash $(PERL_VERSION)
+	phpenv rehash $(PHP_VERSION)
 	pyenv rehash 2.7.9
-	pyenv rehash 3.6.0
-	ndenv rehash 6.9.4
-	goenv rehash 1.8
+	pyenv rehash $(PYTHON_VERSION)
+	ndenv rehash $(NODE_VERSION)
+	goenv rehash $(GO_VERSION)
 
 install-cloudtool:
 	wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
@@ -60,11 +78,9 @@ install-cloudtool:
 	./google-cloud-sdk/bin/gcloud components install app-engine-go
 	chmod -R +x ./google-cloud-sdk/platform/google_appengine/
 
-install-tmux-reahat:
-	sudo yum install tmux
-
-install-tmux-debian:
-	sudo apt-get install tmux
+install-tmux:
+	chmod +x $(HOME)/dotfiles/install_tmux.sh
+	$(HOME)/dotfiles/install_tmux.sh
 
 install-composer:
 	curl -sS https://getcomposer.org/installer | php
@@ -92,7 +108,7 @@ install-htop:
 	cd htop-2.0.0 && ./configure && make && sudo make install
 	rm -rf htop-2.0.0
 
-install-brews: install-brew
+install-brews:
 	brew update
 	brew upgrade
 	brew install ag
@@ -113,8 +129,14 @@ install-brews: install-brew
 	brew cleanup
 
 install-memcached-tool:
-	git clone https://github.com/memcached/memcached.git ${HOME}/dotfiles/bin/memcached
-	cp ${HOME}/dotfiles/bin/memcached/scripts/* ${HOME}/dotfiles/bin/
+	git clone https://github.com/memcached/memcached.git $(HOME)/dotfiles/bin/memcached
+	cp $(HOME)/dotfiles/bin/memcached/scripts/* $(HOME)/dotfiles/bin/
+
+install-npms:
+	npm install -g vue-cli
+	npm install -g gulp
+	npm install -g dockly
+
 go:
 	# direnv
 	# glide
@@ -124,8 +146,8 @@ go:
 make-keys:
 
 prebench:
-	chmod +x $(HOME)/dotfiles/prebench.sh
-	$(HOME)/dotfiles/prebench.sh
+	chmod +x $(HOME)/dotfiles/scripts/prebench.sh
+	$(HOME)/dotfiles/scripts/prebench.sh
 
 journal: journal-mysql journal-nginx
 
@@ -173,10 +195,10 @@ pprof:
 	go tool pprof -seconds=60 /home/isucon/private_isu/webapp/golang/app http://127.0.0.1:6060/debug/pprof/profile
 
 profile-app:
-	go tool pprof /home/isucon/webapp/go/isuda ${APP_LOG}
+	go tool pprof /home/isucon/webapp/go/isuda $(APP_LOG)
 
 watch-mysql:
-	myprofiler -host=localhost -user=${DB_USER} -password=${DB_PASS}
+	myprofiler -host=localhost -user=$(DB_USER) -password=$(DB_PASS)
 
 watch-nginx-error:
 	sudo tail -f $(NGINX_ERROR_LOG)
@@ -194,10 +216,10 @@ check-fs:
 	df -Th
 
 check-dbsize:
-	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/dbsize.sql
+	mysql -u$(DB_USER) -p$(DB_PASS) < $(TOOLS_DIR)/sql/dbsize.sql
 
 check-cachehit:
-	mysql -u${DB_USER} -p${DB_PASS} < ${TOOLS_DIR}/sql/cachehit.sql
+	mysql -u$(DB_USER) -p$(DB_PASS) < $(TOOLS_DIR)/sql/cachehit.sql
 
 check-ps:
 	ps -aufx
@@ -206,10 +228,10 @@ check-tcp:
 	netstat -tnl
 
 profile-mysql:
-	sudo pt-query-digest  ${MYSQL_SLOW_LOG} > ${HOME}/mysql_profile.log
+	sudo pt-query-digest  $(MYSQL_SLOW_LOG) > $(HOME)/mysql_profile.log
 
 profile-nginx:
-	sudo alp -f ${NGINX_ACCESS_LOG} --aggregates "/keyword/\.*" > ${HOME}/nginx_profile.log
+	sudo alp -f $(NGINX_ACCESS_LOG) --aggregates "/keyword/\.*" > $(HOME)/nginx_profile.log
 
 # restartさせるserviceの追加
 restart: restart-mysql restart-nginx
@@ -228,10 +250,10 @@ backup: backup-mysql
 
 # TODO 最初の一回だけのものを保持する
 backup-mysql:
-	mysqldump -u ${DB_USER} -p${DB_PASS}  > ${DB_NAME}.sql
+	mysqldump -u $(DB_USER) -p$(DB_PASS)  > $(BACKUP_SQLS)/$(DB_NAME).sql
 
 backup-mysql-all:
-	mysqldump -u root -x --all-databases > full_backup.sql
+	mysqldump -u root -x --all-databases > $(BACKUP_SQLS)/full_backup.sql
 
 # backup-postgresql:
 # 	pg_dump isuconp > backup_psql.sql
@@ -240,10 +262,10 @@ backup-mysql-all:
 restore: restore-mysql
 
 restore-mysql:
-	mysql -u ${DB_USER} -p{$DB_PASS} < ${DATABASE}.sql
+	mysql -u $(DB_USER) -p($DB_PASS) < $(DB_NAME).sql
 
 restore-mysql-all:
-	mysql -u root < full_backup.sql
+	mysql -u root < $(BACKUP_SQLS)/full_backup.sql
 
 dump-memcache:
 	memcached-tool localhost:11211 dump
