@@ -1,5 +1,5 @@
 [[plugins]] #deinを改めてプラグインとして使用する
-repo = 'Shougo/dein.vim' 
+repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'fatih/vim-go'
@@ -7,11 +7,11 @@ hook_add = '''
 nnoremap <C-o><C-R> :GoRun<CR>
 '''
 
-[[plugins]]#emmet vim 
+[[plugins]]#emmet vim
 repo = 'mattn/emmet-vim'
 
 #[[plugins]] #??????? OS 依存性あり、特にwindowsは注意
-#repo = 'Shougo/vimproc.vim' 
+#repo = 'Shougo/vimproc.vim'
 
 [[plugins]] #vim-smartinupt とvim-endwiseを合わせた、conflictの危険あり
 repo = 'cohama/vim-smartinput-endwise'

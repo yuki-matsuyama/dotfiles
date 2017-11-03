@@ -4,7 +4,6 @@ set -ex
 mkdir -p ${HOME}/.config
 if [ -L ${HOME}/.editorconfig ]; then
     unlink ${HOME}/.editorconfig
-	unlink ${HOME}/.editorconfig
 	unlink ${HOME}/.gemrc
 	unlink ${HOME}/.gvimrc
 	unlink ${HOME}/.tigrc
