@@ -46,6 +46,7 @@ if dein#load_state(s:dein_cache_dir)
     call dein#add('heavenshell/vim-jsdoc')
     call dein#add('bronson/vim-trailing-whitespace')
     call dein#add('vim-scripts/PDV--phpDocumentor-for-Vim')
+    call dein#add('w0ng/vim-hybrid')
     if has('nvim')
       "deinのプラグイン設定ファイル$HOME/.config/dein/dein.toml
       call dein#load_toml(s:toml_dir . '/denite.toml', {'lazy': 1})
@@ -254,9 +255,13 @@ imap <C-e>, <plug>(emmet-expand-abbr)
 
 "key map個人
 "highlight CursorLine term=reverse cterm=reverse
-set background=dark
 " autocmd colorscheme antares highlight Visual ctermbg=8
-colorscheme antares
+if $ENV == 'local'
+    set background=dark
+    colorscheme hybrid
+elseif $ENV == 'unit'
+    colorscheme antares
+endif
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 
