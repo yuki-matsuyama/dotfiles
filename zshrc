@@ -4,6 +4,7 @@ if [ -f ~/.oh-my-zsh/templates/zshrc.zsh-template ]
 then
   source ~/.oh-my-zsh/templates/zshrc.zsh-template
 fi
+source ~/.oh-my-zsh/themes/blinks.zsh-theme
 alias vi=/usr/local/bin/vim
 alias search="find . -type f -print | xargs grep --color=auto -n "
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
