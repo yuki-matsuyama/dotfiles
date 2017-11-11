@@ -16,22 +16,8 @@ PYTHON_VERSION='3.6.0'
 PLATFORM='Darwin'
 
 link:
-	chmod +x $(HOME)/dotfiles/scripts/prelink.sh
-	$(HOME)/dotfiles/scripts/prelink.sh
-	ln -sf $(HOME)/dotfiles/editorconfig $(HOME)/.editorconfig
-	ln -sf $(HOME)/dotfiles/gemrc $(HOME)/.gemrc
-	ln -sf $(HOME)/dotfiles/gvimrc $(HOME)/.gvimrc
-	ln -sf $(HOME)/dotfiles/tigrc $(HOME)/.tigrc
-	ln -sf $(HOME)/dotfiles/tmux.conf $(HOME)/.tmux.conf
-	ln -sf $(HOME)/dotfiles/vimrc $(HOME)/.vimrc
-	ln -sf $(HOME)/dotfiles/zshenv $(HOME)/.zshenv
-	# ln -sf $(HOME)/dotfiles/zpreztorc $(HOME)/.zpreztorc
-	ln -sf $(HOME)/dotfiles/zshrc $(HOME)/.zshrc
-	ln -sf $(HOME)/dotfiles/bashrc $(HOME)/.bashrc
-	ln -sf $(HOME)/dotfiles/config/dein $(HOME)/.config/dein
-	cat $(HOME)/dotfiles/scripts/env.sh >> bashrc
-	cat $(HOME)/dotfiles/scripts/env.sh >> zshrc
-
+	chmod +x $(HOME)/dotfiles/scripts/link.sh
+	$(HOME)/dotfiles/scripts/link.sh
 
 go:
 	# direnv
@@ -56,7 +42,7 @@ journal-mysql:
 journal-postgresql:
 	sudo journalctl -f -u  postgresql
 
-install-local-bin-util: install-alp install-myprofiler install-pt-query-digest install-ohmyzsh install-memcached-tool install-peco install-fzf install-bashit install-dstat install-htop
+install-local-bin-util: install-alp install-myprofiler install-pt-query-digest install-ohmyzsh install-memcached-tool install-peco install-fzf install-bashit install-dstat
 
 install-myprofiler:
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
@@ -86,42 +72,42 @@ install-fzf:
 	mv ./fzf $(HOME)/dotfiles/bin
 
 install-anyenv:
-	if [ ! -d "~/.anyenv" ]; then \
-		git clone https://github.com/riywo/anyenv ~/.anyenv; \
-		chmod +x $(HOME)/dotfiles/scripts/anyenv.sh
-		$(HOME)/dotfiles/scripts/anyenv.sh
-	fi
+	chmod +x $(HOME)/dotfiles/scripts/anyenv.sh
+	$(HOME)/dotfiles/scripts/anyenv.sh
 
-install-anyenvs:
-	anyenv install rbenv
-	anyenv install plenv
+install-anyenvs: install-perl install-php install-node install-go install-node install-python
+
+install-perl:
+	chmod +x $(HOME)/dotfiles/scripts/install-perl.sh
+	$(HOME)/dotfiles/scripts/install-perl.sh $(PERL_VERSION)
+
+install-php:
+	chmod +x $(HOME)/dotfiles/scripts/install-php.sh
+	$(HOME)/dotfiles/scripts/install-php.sh $(PHP_VERSION)
+
+install-node:
+	chmod +x $(HOME)/dotfiles/scripts/install-node.sh
+	$(HOME)/dotfiles/scripts/install-node.sh $(NODE_VERSION)
+
+
+install-python-2.7.9:
 	anyenv install pyenv
-	anyenv install ndenv
-	anyenv install phpenv
-	anyenv install luaenv
-	anyenv install goenv
-	exec $SHELL -l
-	rbenv install $(RUBY_VERSION)
-	plenv install $(PERL_VERSION)
 	pyenv install 2.7.9
-	pyenv install $(PYTHON_VERSION)
-	ndenv install $(NODE_VERSION)
-	goenv install $(GO_VERSION)
-	phpenv install $(PHP_VERSION)
-	rbenv global $(RUBY_VERSION)
-	plenv global $(PERL_VERSION)
-	phpenv global $(PHP_VERSION)
 	pyenv global 2.7.9
-	pyenv global $(PYTHON_VERSION)
-	ndenv global $(NODE_VERSION)
-	goenv global $(GO_VERSION)
-	rbenv rehash $(RUBY_VERSION)
-	plenv rehash $(PERL_VERSION)
-	phpenv rehash $(PHP_VERSION)
 	pyenv rehash 2.7.9
-	pyenv rehash $(PYTHON_VERSION)
-	ndenv rehash $(NODE_VERSION)
-	goenv rehash $(GO_VERSION)
+
+install-python:
+	chmod +x $(HOME)/dotfiles/scripts/install-python.sh
+	$(HOME)/dotfiles/scripts/install-python.sh $(PYTHON_VERSION)
+
+install-go:
+	chmod +x $(HOME)/dotfiles/scripts/install-go.sh
+	$(HOME)/dotfiles/scripts/install-go.sh $(GO_VERSION)
+
+install-ruby:
+	chmod +x $(HOME)/dotfiles/scripts/install-ruby.sh
+	$(HOME)/dotfiles/scripts/install-ruby.sh $(RUBY_VERSION)
+
 
 install-cloudtool:
 	wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
@@ -130,6 +116,11 @@ install-cloudtool:
 	./google-cloud-sdk/bin/gcloud init
 	./google-cloud-sdk/bin/gcloud components install app-engine-go
 	chmod -R +x ./google-cloud-sdk/platform/google_appengine/
+
+install-docker-sync:
+	gem install docker-sync
+	brew install fswatch
+	brew install unison
 
 install-tmux:
 	chmod +x $(HOME)/dotfiles/install_tmux.sh
@@ -167,7 +158,6 @@ install-brews:
 	brew upgrade
 	brew install ag
 	brew install ctags
-	brew install direnv
 	brew install jq
 	brew install reattach-to-user-namespace
 	brew install tig
