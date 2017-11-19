@@ -108,6 +108,9 @@ install-ruby:
 	chmod +x $(HOME)/dotfiles/scripts/install-ruby.sh
 	$(HOME)/dotfiles/scripts/install-ruby.sh $(RUBY_VERSION)
 
+install-go-lib:
+	go get -u github.com/nsf/gocode
+
 
 install-cloudtool:
 	wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz

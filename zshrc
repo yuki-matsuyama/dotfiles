@@ -14,16 +14,6 @@ alias vuework="/Users/yukimatsuyama/workspace/vue-spa"
 alias dt='${HOME}/dotfiles'
 plugins=(git)
 #shellscript の実行
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
-
 # fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
 fgco() {
   local branches branch
@@ -35,6 +25,12 @@ fgco() {
 
 fssh() {
   ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | xargs ssh
+}
+
+fcd() {
+    local dir
+    dir=$(ag '^project [^*]' ~/.project | cut -d ' ' -f 2 | fzf)
+    cd "$dir"
 }
 
 fstash() {
@@ -76,8 +72,11 @@ esac
 
 export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
 eval "$(anyenv init -)"
-export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
-export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
-export PATH="$HOME/.anyenv/bin:$PATH"
+
+export XDG_CONFIG_HOME=$HOME/.config
+export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
+export PHP_PATH=$HOME/.anyenv/envs/phpenv/versions/7.1.0/composer/vandor
+export PATH=$HOME/.anyenv/bin:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$HOME/local/bin:$GOPATH/bin:$PHP_PATH/bin:$PATH
+export TERM='xterm-256color'
+export GOPATH=$HOME/workspace/go/
+export ENV='local'

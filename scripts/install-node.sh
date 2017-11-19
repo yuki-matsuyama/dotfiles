@@ -1,5 +1,5 @@
-anyenv install ndenv
-eval "$(anyenv init -)"
-ndenv install $1
-ndenv global $1
-ndenv rehash $1
+curl -L git.io/nodebrew | perl - setup
+
+nodebrew install-binary $1
+nodebrew global $1
+nodebrew rehash $1

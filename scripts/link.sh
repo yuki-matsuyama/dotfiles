@@ -1,13 +1,15 @@
 #!/bin/bash
-set -ex
+set -e
 
-files=('.editorconfig' '.gemrc' '.gvimrc' '.tigrc' '.tmux.conf' '.vimrc' '.zshenv' '.zpreztorc' '.zshrc' '.bashrc' '.config/dein')
+files=('editorconfig' 'gemrc' 'gvimrc' 'tigrc' 'tmux.conf' 'vimrc' 'zshenv' 'zpreztorc' 'zshrc' 'bashrc' 'config/dein' 'php_cs')
 
 mkdir -p ${HOME}/.config
-for file in $files ; do
-    if [ -L ${HOME}/${file} ]; then
-        unlink ${HOME}/${file}
-    elif [ -f ${HOME}/${file} ]; then
-        mv ${file} $file.$(date "+%Y%m%d_%H%M%S")
+for file in ${files[@]} ; do
+    echo ${file}
+    if [ -L ${HOME}/.${file} ]; then
+        unlink ${HOME}/.${file}
+    elif [ -f ${HOME}/.${file} ]; then
+        mv ${HOME}/.${file} $(HOME)/.$file.$(date "+%Y%m%d_%H%M%S")
     fi
+    ln -sf ${HOME}/dotfiles/${file} ${HOME}/.${file}
 done
