@@ -11,7 +11,7 @@ return PhpCsFixer\Config::create()
     ->setRules(array(
         '@PSR2' => true,
         'strict_param' => true,
-        'array_syntax' => array('syntax' => 'short'),
+        'array_syntax' => array('syntax' => 'long'),
     ))
     ->setFinder($finder)
 ;

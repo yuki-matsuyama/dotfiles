@@ -12,6 +12,12 @@ alias work="${HOME}/workspace"
 alias gowork="/Users/yukimatsuyama/workspace/go/src"
 alias vuework="/Users/yukimatsuyama/workspace/vue-spa"
 alias dt='${HOME}/dotfiles'
+alias dc='docker-compose'
+alias dc='docker'
+alias dnr='docker network rm $(docker network ls -q)'
+alias dvr='docker volume rm $(docker volume ls -aq)'
+alias dcr='docker container rm $(docker container ls -aq)'
+alias code="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron"
 plugins=(git)
 #shellscript の実行
 # fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
@@ -75,8 +81,8 @@ eval "$(anyenv init -)"
 
 export XDG_CONFIG_HOME=$HOME/.config
 export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
-export PHP_PATH=$HOME/.anyenv/envs/phpenv/versions/7.1.0/composer/vandor
+export PHP_PATH=$HOME/.anyenv/envs/phpenv/shims/composer/vendor
 export PATH=$HOME/.anyenv/bin:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$HOME/local/bin:$GOPATH/bin:$PHP_PATH/bin:$PATH
 export TERM='xterm-256color'
-export GOPATH=$HOME/workspace/go/
+export GOPATH=$HOME/workspace/go
 export ENV='local'

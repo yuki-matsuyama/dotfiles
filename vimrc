@@ -290,7 +290,7 @@ let g:ctrlp_custom_ignore = {
 \ 'file': '\v\.(exe|so|dll)$',
 \ 'link': 'some_bad_symbolic_links',
 \ }
-let g:ctrlp_types = ['mru', 'fil']
+let g:ctrlp_types = ['fil', 'mru']
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_clear_cache_on_exit = 0
@@ -318,6 +318,7 @@ let g:php_cs_fixer_dry_run = 1                    " Call command with dry-run op
 let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
 " nnoremap <silent><leader>php :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>php :call PhpCsFixerFixFile()<CR>
+nnoremap <silent><leader>t :terminal<CR>
 
 "neocomplete-php
 " let g:neocomplete_php_locale = 'ja'
