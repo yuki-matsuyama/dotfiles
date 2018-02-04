@@ -8,3 +8,4 @@ project /Users/yukimatsuyama/workspace/dockerode
 project /Users/yukimatsuyama/workspace/pomodoro
 project /Users/yukimatsuyama/workspace/homes
 project /Users/yukimatsuyama/workspace/homes/laradock #開発環境用のdirectory sqlが入っているので実行には注意
+project /Users/yukimatsuyama/workspace/homes/themes/kenshin-kenshinschool/assets/js/vue_src #開発環境用のdirectory sqlが入っているので実行には注意
