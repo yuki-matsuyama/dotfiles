@@ -7,7 +7,6 @@ fi
 source ~/.oh-my-zsh/themes/blinks.zsh-theme
 alias vi=/usr/local/bin/vim
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
-alias 'git commit'='git cz'
 plugins=(git)
 
 # data flow of shellscript
