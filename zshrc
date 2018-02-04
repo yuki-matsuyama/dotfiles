@@ -6,27 +6,20 @@ then
 fi
 source ~/.oh-my-zsh/themes/blinks.zsh-theme
 alias vi=/usr/local/bin/vim
-alias search="find . -type f -print | xargs grep --color=auto -n "
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
-alias work="${HOME}/workspace"
-alias gowork="/Users/yukimatsuyama/workspace/go/src"
-alias vuework="/Users/yukimatsuyama/workspace/vue-spa"
-alias dt='${HOME}/dotfiles'
-alias dc='docker-compose'
-alias dc='docker'
-alias dnr='docker network rm $(docker network ls -q)'
-alias dvr='docker volume rm $(docker volume ls -aq)'
-alias dcr='docker container rm $(docker container ls -aq)'
-alias code="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron"
 plugins=(git)
-#shellscript の実行
-# fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
-fgco() {
-  local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+
+# data flow of shellscript
+# 1. データの取得(特定のシステムコマンドもしくはローカルで持つ配列)grep ならagを使った方が良い
+# 2. データの整形置換ならsed 今あるものを編集して保持するならawk データがテーブル形式なら極力cutを使用する
+# 3. 式の評価$()を使いましょう
+# 4. OSに依存するならOSTYPEを使用する
+
+
+fdocker() {
+    local dock
+    dock=$(cat ~/.docker-command| fzf)
+    eval $dock
 }
 
 fssh() {
@@ -37,30 +30,6 @@ fcd() {
     local dir
     dir=$(ag '^project [^*]' ~/.project | cut -d ' ' -f 2 | fzf)
     cd "$dir"
-}
-
-fstash() {
-  local out q k sha
-  while out=$(
-    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
-  do
-    mapfile -t out <<< "$out"
-    q="${out[0]}"
-    k="${out[1]}"
-    sha="${out[-1]}"
-    sha="${sha%% *}"
-    [[ -z "$sha" ]] && continue
-    if [[ "$k" == 'ctrl-d' ]]; then
-      git diff $sha
-    elif [[ "$k" == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
-      break;
-    else
-      git stash show -p $sha
-    fi
-  done
 }
 
 fmake(){
