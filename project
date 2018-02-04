@@ -1,10 +1,10 @@
 project /Users/yukimatsuyama/workspace/emovie
 project /Users/yukimatsuyama/workspace/emovie/tools
 project /Users/yukimatsuyama/workspace/chromy_sample
-project /Users/yukimatsuyama/workspace/laradock
 project /Users/yukimatsuyama/workspace/wantedly_intern
 project /Users/yukimatsuyama/workspace/docker-visible
 project /Users/yukimatsuyama/workspace/docker-modem
 project /Users/yukimatsuyama/workspace/dockerode
 project /Users/yukimatsuyama/workspace/pomodoro
 project /Users/yukimatsuyama/workspace/homes
+project /Users/yukimatsuyama/workspace/homes/laradock #開発環境用のdirectory sqlが入っているので実行には注意

@@ -5,6 +5,7 @@ docker-compose up
 docker-compose stop
 docker-compose build
 docker-compose up php-fpm apache2 memcached mysql
+docker-compose up php-fpm nginx memcached mysql
 docker-compose build php-fpm apache2 memcached mysql
 docker network rm $(docker network ls -q)
 docker network ls
