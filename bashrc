@@ -69,3 +69,10 @@ esac
 #一番最初に修正
 export TOOLS_DIR=$HOME/dotfiles
 #一番最初に修正
+
+###-tns-completion-start-###
+if [ -f /Users/yukimatsuyama/.tnsrc ]; then 
+    source /Users/yukimatsuyama/.tnsrc 
+fi
+###-tns-completion-end-###
+export PATH=$HOME/.nodebrew/current/bin:$PATH

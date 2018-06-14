@@ -268,6 +268,18 @@ dump-memcache:
 dump-tcpdump:
 	sudo tcpdump -A port 8080
 
+gcloud-display-projects:
+	gcloud projects list
+
+gcloud-init:
+	gcloud init
+
+gcloud-change-projects:
+	echo 'gcloud config set project <your-project-id>'
+
+gcloud-login:
+	gcloud auth login
+
 # retore-psql:
 # 	psql restore < backup_psql.sql
 

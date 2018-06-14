@@ -9,3 +9,16 @@ project /Users/yukimatsuyama/workspace/pomodoro
 project /Users/yukimatsuyama/workspace/homes
 project /Users/yukimatsuyama/workspace/homes/laradock #開発環境用のdirectory sqlが入っているので実行には注意
 project /Users/yukimatsuyama/workspace/homes/themes/kenshin-kenshinschool/assets/js/vue_src #開発環境用のdirectory sqlが入っているので実行には注意
+project /Users/yukimatsuyama/workspace/homes/themes/kenshin-kenshinschool
+project /Users/yukimatsuyama/workspace/tech-blog
+project /Users/yukimatsuyama/workspace/markdown
+project /Users/yukimatsuyama/workspace/
+project /Users/yukimatsuyama/workspace/residential_map
+project /Users/yukimatsuyama/workspace/residential_map_api
+project /Users/yukimatsuyama/workspace/residential_map_admin
+project /Users/yukimatsuyama/workspace/residential_map_infra
+project /Users/yukimatsuyama/workspace/effective_map
+project /Users/yukimatsuyama/workspace/matterport
+project /Users/yukimatsuyama/workspace/simulation_lp
+project /Users/yukimatsuyama/workspace/residential_map/django_cloudsql
+
