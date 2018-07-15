@@ -7,7 +7,7 @@ fi
 source ~/.oh-my-zsh/themes/blinks.zsh-theme
 alias vi=/usr/local/bin/vim
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
-alias python="python3"
+# alias python="python3"
 plugins=(git)
 
 # data flow of shellscript
@@ -55,15 +55,18 @@ export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfi
 
 export XDG_CONFIG_HOME=$HOME/.config
 export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
-export PATH=$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$HOME/local/bin:$GOPATH/bin:$HOME/dotfiles/google-cloud-sdk/bin:
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$HOME/local/bin:$GOPATH/bin:$HOME/dotfiles/google-cloud-sdk/bin:
 export TERM='xterm-256color'
 export GOPATH=$HOME/workspace/go
 export ENV='local'
 
-export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/residential-map/residential-maps-680ddd917cb0.json
+# export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/residential-map/residential-maps-680ddd917cb0.json
+export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/analyze-residential-62968daf039a.json
 
 ###-tns-completion-start-###
 if [ -f /Users/yukimatsuyama/.tnsrc ]; then
     source /Users/yukimatsuyama/.tnsrc
 fi
 ###-tns-completion-end-###
+eval "$(pyenv init -)"

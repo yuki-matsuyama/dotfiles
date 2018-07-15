@@ -3,29 +3,11 @@ NGINX_ACCESS_LOG='/var/log/nginx/access_log'
 NGINX_ERROR_LOG='/var/log/nginx/error_log'
 MYSQL_SLOW_LOG='/var/log/mysql/'
 MYSQL_ERROR_LOG="/var/log/mysql/mysql_error_log"
-BACKUP_SQLS='$(HOME)/dotfiles/sql/backup'
-DB_USER='isucon'
-DB_PASS='isucon'
-DB_NAME='isucon'
-RUBY_VERSION='2.4.0'
-GO_VERSION='1.8'
-PHP_VERSION='7.0.2'
-NODE_VERSION='8.7.0'
-PERL_VERSION='5.25.9'
-PYTHON_VERSION='3.6.0'
 PLATFORM='Darwin'
 
 link:
 	chmod +x $(HOME)/dotfiles/scripts/link.sh
 	$(HOME)/dotfiles/scripts/link.sh
-
-go:
-	# direnv
-	# glide
-	# dep
-	#
-#TODO
-make-keys:
 
 prebench:
 	chmod +x $(HOME)/dotfiles/scripts/prebench.sh
@@ -41,8 +23,6 @@ journal-mysql:
 
 journal-postgresql:
 	sudo journalctl -f -u  postgresql
-
-install-local-bin-util: install-alp install-myprofiler install-pt-query-digest install-ohmyzsh install-memcached-tool install-peco install-fzf install-bashit install-dstat
 
 install-myprofiler:
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
@@ -71,59 +51,11 @@ install-fzf:
 	chmod +x ./fzf
 	mv ./fzf $(HOME)/dotfiles/bin
 
-install-anyenv:
-	chmod +x $(HOME)/dotfiles/scripts/anyenv.sh
-	$(HOME)/dotfiles/scripts/anyenv.sh
 
-install-anyenvs: install-perl install-php install-node install-go install-node install-python
-
-install-perl:
-	chmod +x $(HOME)/dotfiles/scripts/install-perl.sh
-	$(HOME)/dotfiles/scripts/install-perl.sh $(PERL_VERSION)
-
-install-php:
-	chmod +x $(HOME)/dotfiles/scripts/install-php.sh
-	$(HOME)/dotfiles/scripts/install-php.sh $(PHP_VERSION)
 
 install-node:
 	chmod +x $(HOME)/dotfiles/scripts/install-node.sh
 	$(HOME)/dotfiles/scripts/install-node.sh $(NODE_VERSION)
-
-
-install-python-2.7.9:
-	anyenv install pyenv
-	pyenv install 2.7.9
-	pyenv global 2.7.9
-	pyenv rehash 2.7.9
-
-install-python:
-	chmod +x $(HOME)/dotfiles/scripts/install-python.sh
-	$(HOME)/dotfiles/scripts/install-python.sh $(PYTHON_VERSION)
-
-install-go:
-	chmod +x $(HOME)/dotfiles/scripts/install-go.sh
-	$(HOME)/dotfiles/scripts/install-go.sh $(GO_VERSION)
-
-install-ruby:
-	chmod +x $(HOME)/dotfiles/scripts/install-ruby.sh
-	$(HOME)/dotfiles/scripts/install-ruby.sh $(RUBY_VERSION)
-
-install-go-lib:
-	go get -u github.com/nsf/gocode
-
-
-install-cloudtool:
-	wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
-	tar -xzf google-cloud-sdk-170.0.1-darwin-x86_64.tar.gz
-	./google-cloud-sdk/install.sh
-	./google-cloud-sdk/bin/gcloud init
-	./google-cloud-sdk/bin/gcloud components install app-engine-go
-	chmod -R +x ./google-cloud-sdk/platform/google_appengine/
-
-install-docker-sync:
-	gem install docker-sync
-	brew install fswatch
-	brew install unison
 
 install-tmux:
 	chmod +x $(HOME)/dotfiles/install_tmux.sh
@@ -178,11 +110,6 @@ install-brews:
 install-memcached-tool:
 	git clone https://github.com/memcached/memcached.git $(HOME)/dotfiles/bin/memcached
 	cp $(HOME)/dotfiles/bin/memcached/scripts/* $(HOME)/dotfiles/bin/
-
-install-npms:
-	npm install -g vue-cli
-	npm install -g gulp
-	npm install -g dockly
 
 profile: profile-mysql profile-nginx
 
@@ -267,20 +194,5 @@ dump-memcache:
 
 dump-tcpdump:
 	sudo tcpdump -A port 8080
-
-gcloud-display-projects:
-	gcloud projects list
-
-gcloud-init:
-	gcloud init
-
-gcloud-change-projects:
-	echo 'gcloud config set project <your-project-id>'
-
-gcloud-login:
-	gcloud auth login
-
-# retore-psql:
-# 	psql restore < backup_psql.sql
 
 .PHONY: log
