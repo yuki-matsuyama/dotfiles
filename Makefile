@@ -9,31 +9,26 @@ link:
 	chmod +x $(HOME)/dotfiles/scripts/link.sh
 	$(HOME)/dotfiles/scripts/link.sh
 
-prebench:
+
+docker-top:
+	ctop
+
+isucon-prebench:
 	chmod +x $(HOME)/dotfiles/scripts/prebench.sh
 	$(HOME)/dotfiles/scripts/prebench.sh
 
-journal: journal-mysql journal-nginx
-
-journal-nginx:
-	sudo journalctl -f -u nginx
-
-journal-mysql:
-	sudo journalctl -f -u mysql
-
-journal-postgresql:
-	sudo journalctl -f -u  postgresql
-
-install-myprofiler:
+isucon-install-myprofiler:
 	wget https://github.com/KLab/myprofiler/releases/download/0.1/myprofiler.linux_amd64.tar.gz
 	tar xf myprofiler.linux_amd64.tar.gz -C $(HOME)/dotfiles/bin
 	rm myprofiler.linux_amd64.tar.gz
 
-install-pt-query-digest:
+isucon-install-pt-query-digest:
 	wget percona.com/get/pt-query-digest -P $(HOME)/dotfiles/bin
 	chmod +x $(HOME)/dotfiles/bin/pt-query-digest
 
-install-alp:
+isucon-postgres-report:
+	pgbadger --help
+isucon-install-alp:
 	wget https://github.com/tkuchiki/alp/releases/download/v0.3.1/alp_linux_amd64.zip
 	unzip alp_linux_amd64.zip -d $(HOME)/dotfiles/bin
 	rm alp_linux_amd64.zip
@@ -64,10 +59,6 @@ install-tmux:
 install-composer:
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(HOME)/dotfiles/bin/composer
-
-install-brew:
-	# homebrew
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 install-dstat:
 	wget https://github.com/dagwieers/dstat/archive/0.7.3.tar.gz

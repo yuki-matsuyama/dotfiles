@@ -15,14 +15,6 @@ plugins=(git)
 # 2. データの整形置換ならsed 今あるものを編集して保持するならawk データがテーブル形式なら極力cutを使用する
 # 3. 式の評価$()を使いましょう
 # 4. OSに依存するならOSTYPEを使用する
-
-
-fdocker() {
-    local dock
-    dock=$(cat ~/.docker-command| fzf)
-    eval $dock
-}
-
 fmakel(){
       cat ./Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf | xargs -o make
 }
@@ -50,17 +42,17 @@ case ${OSTYPE} in
     ;;
 esac
 
-export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
-# eval "$(anyenv init -)"
-
+# vim用の環境変数
 export XDG_CONFIG_HOME=$HOME/.config
 export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
+# pyenvの設定
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$HOME/local/bin:$GOPATH/bin:$HOME/dotfiles/google-cloud-sdk/bin:
-export TERM='xterm-256color'
+# GOPATHの設定
 export GOPATH=$HOME/workspace/go
-export ENV='local'
-
+# ここでローカルで用意したものとgcp系のコマンドにPATHを通す
+export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
+export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$GOPATH/bin:
+export TERM='xterm-256color'
 # export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/residential-map/residential-maps-680ddd917cb0.json
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/analyze-residential-62968daf039a.json
 
