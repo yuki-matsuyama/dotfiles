@@ -30,7 +30,7 @@ fcd() {
 }
 
 fmake(){
-  cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf | xargs -o make
+    cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile |  grep -v ^#| grep :|  awk '{ print $0  }'| sed  -e s/:// | fzf | tr '#' ' ' | awk '{print $(1)}' | xargs -o make
 }
 
 case ${OSTYPE} in
