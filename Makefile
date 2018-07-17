@@ -126,48 +126,52 @@ check-cachehit-cahce-mysql-sql: #キャッシュがしっかり機能してい�
 
 check-disk-io-with-5sec-interval:# ディスクI/O状況を確認できます。-d でインターバルを指定できます。だいたい5秒にしています。ファイルシステムのバッファフラッシュによるバーストがあり、ゆらぎが大きいので、小さくしすぎないことが重要かもしれません。
 	iostat -dx 5
-check-ps-process:
+
+check-ps-process: #子プロセス付きでプロセスを見る
 	ps -awfx
 
 check-netstat-tcp: #netstat はネットワークに関するさまざまな情報をみれます。 TCPの通信状況をみるのによく使っています-t でTCPの接続情報を表示し、 -n で名前解決せずIPアドレスで表示します。-n がないと連続して名前解決が走る可能性があり、接続が大量な状況だとつまって表示が遅いということがありえます。
 	netstat -tnl
 
-check-netstat-all: #TCPの全部のステートをみるには -a を指定します。 -o はTCP接続のタイマー情報、 -pはプロセス名の表示 (-p には root権限が必要) ができます。
+check-netstat-all: #TCPの全部のステートをみるには -a を指定します。 -o はTCP接続のタイマー情報、 -pはプロセス名の表示 (-p には root権限が必要) ができます。linuxだた -tanop
 	sudo netstat -tanop
 
 check-top-with-process-name: #-c をつけると、プロセスリスト欄に表示されるプロセス名が引数の情報も入ります。気になるプロセスを見つけたら調査idはidleの略
 	top -c
 
-profile-mysql-pt-query-digest:
+check-profile-mysql-pt-query-digest: #pt-query-digestで遅いクエリを解析
 	sudo pt-query-digest  $(MYSQL_SLOW_LOG) > $(HOME)/mysql_profile.log
 
-profile-nginx-alp:
+check-profile-nginx-alp: #pt-query-digestでどのルーティングからのアクセスが遅いか調査
 	sudo alp -f $(NGINX_ACCESS_LOG) --aggregates "/keyword/\.*" > $(HOME)/nginx_profile.log
 
 
-search-log-file-lsof: #/etcをみてもわからんというときは最終手段で、lsofを使います。 ps や top でログをみたいプロセスのプロセスIDを調べて、lsof -p <pid> を打ちます。 そのプロセスが開いたファイルディスクリプタ情報がみえるので、ログを書き込むためにファイルを開いていれば、出力からログのファイルパスがわかります。
+check-search-log-file-lsof: #/etcをみてもわからんというときは最終手段で、lsofを使います。 ps や top でログをみたいプロセスのプロセスIDを調べて、lsof -p <pid> を打ちます。 そのプロセスが開いたファイルディスクリプタ情報がみえるので、ログを書き込むためにファイルを開いていれば、出力からログのファイルパスがわかります。
 	lsof
+
+check-current-login-user-w: #pcに入っているユーザを確認
+	w
 
 # restartさせるserviceの追加
 restart: restart-mysql restart-nginx
 
-restart-mysql:
+restart-mysql: #再起動させるコマンド
 	sudo /etc/init.d/mysql restart
 
-restart-nginx:
+restart-nginx: #再起動させるコマンド
 	sudo /etc/init.d/nginx restart
 
-# restart-postgresql:
-# 	sudo /etc/init.d/postgresql restart
+restart-postgresql: 再起動させるコマンド
+	sudo /etc/init.d/postgresql restart
 
 # backupするdata storeの選択
 backup: backup-mysql
 
 # TODO 最初の一回だけのものを保持する
-backup-mysql:
+backup-mysql: #mysqlのバックアップ
 	mysqldump -u $(DB_USER) -p$(DB_PASS)  > $(BACKUP_SQLS)/$(DB_NAME).sql
 
-backup-mysql-all:
+backup-mysql-all: #システムなど全てのデータをバックアップ
 	mysqldump -u root -x --all-databases > $(BACKUP_SQLS)/full_backup.sql
 
 # backup-postgresql:
@@ -176,16 +180,16 @@ backup-mysql-all:
 # restoreさせるdata storeの選択
 restore: restore-mysql
 
-restore-mysql:
+restore-mysql: #mysqlのクエリを実行してリストア
 	mysql -u $(DB_USER) -p($DB_PASS) < $(DB_NAME).sql
 
-restore-mysql-all:
+restore-mysql-all: #mysqlの全てのデータをリストあ
 	mysql -u root < $(BACKUP_SQLS)/full_backup.sql
 
-dump-memcache:
+dump-memcache: #memcacheの中身を取得
 	memcached-tool localhost:11211 dump
 
-dump-tcpdump:
+dump-tcpdump: #wiresharkで解析するためのデータを取得
 	sudo tcpdump -A port 8080
 
 .PHONY: log
