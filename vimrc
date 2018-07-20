@@ -256,12 +256,7 @@ imap <C-e>, <plug>(emmet-expand-abbr)
 "key map個人
 "highlight CursorLine term=reverse cterm=reverse
 " autocmd colorscheme antares highlight Visual ctermbg=8
-if $ENV == 'local'
-    set background=dark
-    colorscheme hybrid
-elseif $ENV == 'unit'
-    colorscheme antares
-endif
+colorscheme hybrid
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 
