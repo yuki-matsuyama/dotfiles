@@ -13,6 +13,9 @@ install-docker-to-debian-gcp-compute-engin: # install docker to debian
 	chmod +x $(HOME)/dotfiles/scripts/install-docker-to-debian-gcp-compute-engin.sh
 	$(HOME)/dotfiles/scripts/install-docker-to-debian-gcp-compute-engin.sh
 
+install-docker-compose-to-debian-gcp-compute-engin: # install docker to debian
+	chmod +x $(HOME)/dotfiles/scripts/install-docker-compose-to-debian-gcp-compute-engin.sh
+	$(HOME)/dotfiles/scripts/install-docker-compose-to-debian-gcp-compute-engin.sh
 
 docker-ctop: # dockerコンテナのcpu負荷をそれぞれに検出https://github.com/bcicen/ctop
 	ctop
