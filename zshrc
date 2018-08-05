@@ -30,7 +30,7 @@ fcd() {
 }
 
 fmake(){
-    cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile |  grep -v ^#| grep :|  awk '{ print $0  }'| sed  -e s/:// | fzf | tr '#' ' ' | awk '{print $(1)}' | xargs -o make
+    cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile |  grep -v "^#"| grep ":\s"|  awk '{ print $0  }'| sed  -e s/:// | fzf | tr '#' ' ' | awk '{print $(1)}' | xargs -o make
 }
 
 case ${OSTYPE} in
@@ -60,5 +60,8 @@ export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/
 if [ -f /Users/yukimatsuyama/.tnsrc ]; then
     source /Users/yukimatsuyama/.tnsrc
 fi
-###-tns-completion-end-###
+
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
 eval "$(pyenv init -)"

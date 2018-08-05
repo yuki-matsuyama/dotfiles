@@ -9,8 +9,17 @@ link: #zhsrcなどのdotfileのシンボリックリンクを張るすでにあ�
 	chmod +x $(HOME)/dotfiles/scripts/link.sh
 	$(HOME)/dotfiles/scripts/link.sh
 
-docker-ctop:# docker コンテナのcpu負荷をそれぞれに検出https://github.com/bcicen/ctop
+install-docker-to-debian-gcp-compute-engin: # install docker to debian
+	chmod +x $(HOME)/dotfiles/scripts/install-docker-to-debian-gcp-compute-engin.sh
+	$(HOME)/dotfiles/scripts/install-docker-to-debian-gcp-compute-engin.sh
+
+
+docker-ctop: # dockerコンテナのcpu負荷をそれぞれに検出https://github.com/bcicen/ctop
 	ctop
+
+docker-clean: # dockerのimage以外を全て削除
+	chmod +x $(HOME)/dotfiles/scripts/clean.sh
+	$(HOME)/dotfiles/scripts/clean.sh
 
 isucon-prebench: # ベンチマークを撮る際にファイルの置き場所をタイムスタンプをつけて変更
 	chmod +x $(HOME)/dotfiles/scripts/prebench.sh
@@ -89,8 +98,6 @@ install-memcached-tool: # memcacheの中身を吐き出すためのツール
 	git clone https://github.com/memcached/memcached.git $(HOME)/dotfiles/bin/memcached
 	cp $(HOME)/dotfiles/bin/memcached/scripts/* $(HOME)/dotfiles/bin/
 
-profile: profile-mysql profile-nginx
-
 pprof: # goのpprofを使ってログ解析
 	go tool pprof -seconds=60 /home/isucon/private_isu/webapp/golang/app http://127.0.0.1:6060/debug/pprof/profile
 
@@ -112,7 +119,7 @@ watch-top: # グラフィカルなtopを実行
 watch-dstat-io: # dstatでioの原因を探る--top-ioは最もIOが多いプロセスを表示し、--top-bioは最もブロックIOが多いプロセスを表示する。また、一般ユーザでは他ユーザのプロセスなどを取得できないので、sudoをつけて実行するとよい。もちろんPIDを知りたい時は--top-cpu-advと同じように--top-io-adv、--top-bio-adv
 	sudo dstat -ta --top-io-adv --top-bio-adv
 
-check-file-disc-capacity-df:#ファイルシステムの容量確認は df コマンドを使います。-T をつけると、ファイルシステムの種別を確認できます。-h をつけると、サイズ表記がヒューマンリーダブルになります。
+check-file-disc-capacity-df: #ファイルシステムの容量確認は df コマンドを使います。-T をつけると、ファイルシステムの種別を確認できます。-h をつけると、サイズ表記がヒューマンリーダブルになります。
 	df -Th
 
 check-server-time-by-uptime:#サーバが前回再起動してから現在までの稼働している時間をみれます
@@ -124,7 +131,7 @@ check-dbsize-database-mysql-sql: #テーブルにある容量を確認してinde
 check-cachehit-cahce-mysql-sql: #キャッシュがしっかり機能しているのかを確認して TODO どう対処するのか?
 	mysql -u$(DB_USER) -p$(DB_PASS) < $(TOOLS_DIR)/sql/cachehit.sql
 
-check-disk-io-with-5sec-interval:# ディスクI/O状況を確認できます。-d でインターバルを指定できます。だいたい5秒にしています。ファイルシステムのバッファフラッシュによるバーストがあり、ゆらぎが大きいので、小さくしすぎないことが重要かもしれません。
+check-disk-io-with-5sec-interval: # ディスクI/O状況を確認できます。-d でインターバルを指定できます。だいたい5秒にしています。ファイルシステムのバッファフラッシュによるバーストがあり、ゆらぎが大きいので、小さくしすぎないことが重要かもしれません。
 	iostat -dx 5
 
 check-ps-process: #子プロセス付きでプロセスを見る
@@ -161,11 +168,8 @@ restart-mysql: #再起動させるコマンド
 restart-nginx: #再起動させるコマンド
 	sudo /etc/init.d/nginx restart
 
-restart-postgresql: 再起動させるコマンド
+restart-postgresql: # 再起動させるコマンド
 	sudo /etc/init.d/postgresql restart
-
-# backupするdata storeの選択
-backup: backup-mysql
 
 # TODO 最初の一回だけのものを保持する
 backup-mysql: #mysqlのバックアップ
@@ -180,16 +184,16 @@ backup-mysql-all: #システムなど全てのデータをバックアップ
 # restoreさせるdata storeの選択
 restore: restore-mysql
 
-restore-mysql: #mysqlのクエリを実行してリストア
+restore-mysql: # mysqlのクエリを実行してリストア
 	mysql -u $(DB_USER) -p($DB_PASS) < $(DB_NAME).sql
 
-restore-mysql-all: #mysqlの全てのデータをリストあ
+restore-mysql-all: # mysqlの全てのデータをリストあ
 	mysql -u root < $(BACKUP_SQLS)/full_backup.sql
 
-dump-memcache: #memcacheの中身を取得
+dump-memcache: # memcacheの中身を取得
 	memcached-tool localhost:11211 dump
 
-dump-tcpdump: #wiresharkで解析するためのデータを取得
+dump-tcpdump: # wiresharkで解析するためのデータを取得
 	sudo tcpdump -A port 8080
 
 .PHONY: log
