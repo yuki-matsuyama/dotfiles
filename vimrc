@@ -239,7 +239,7 @@ vmap <Leader>o <Plug>(openbrowser-smart-search)
 " let g:airline#extensions#tabline#show_splits = 0
 " let g:airline#extensions#tabline#show_tab_type = 0
 " let g:airline#extensions#tabline#show_close_button = 0
-let g:airline_section_c = airline#section#create(['path'])
+" let g:airline_section_c = airline#section#create(['path'])
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
 
@@ -256,7 +256,7 @@ imap <C-e>, <plug>(emmet-expand-abbr)
 "key map個人
 "highlight CursorLine term=reverse cterm=reverse
 " autocmd colorscheme antares highlight Visual ctermbg=8
-colorscheme hybrid
+colorscheme desert
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
 
@@ -333,23 +333,6 @@ let s:quickrun_config_javascript = {
       \    'cmdopt':      '--cache --cache-location ' . s:dein_cache_dir . '/eslint/.eslintcache --format compact --max-warnings 1 --no-color --no-ignore --quiet',
       \    'errorformat': '%E%f: line %l\, col %c\, Error - %m,%W%f: line %l\, col %c\, Warning - %m,%-G%.%#',
       \    'exec':        '%c %o %s:p'
-      \}
-let g:quickrun_config = {
-      \    '_': {
-      \        'hook/close_buffer/enable_empty_data': 1,
-      \        'hook/close_buffer/enable_failure':    1,
-      \        'outputter':                           'multi:buffer:quickfix',
-      \        'outputter/buffer/close_on_empty':     1,
-      \        'outputter/buffer/split':              ':botright',
-      \        'runner':                              'vimproc',
-      \        'runner/vimproc/updatetime':           600
-      \    },
-      \    'javascript': {
-      \        'command':     s:quickrun_config_javascript['command'],
-      \        'cmdopt':      s:quickrun_config_javascript['cmdopt'] . ' --config ' . $HOME . '/dotfile/.eslintrc',
-      \        'errorformat': s:quickrun_config_javascript['errorformat'],
-      \        'exec':        s:quickrun_config_javascript['exec']
-      \    }
       \}
 "filetype set
 augroup Vimrc

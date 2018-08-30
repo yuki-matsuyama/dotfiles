@@ -16,7 +16,7 @@ fkill() {
     echo $pid | xargs kill -${1:-9}
   fi
 }
-
+# さいあ
 # fbr - checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
 fgco() {
   local branches branch
@@ -71,8 +71,8 @@ export TOOLS_DIR=$HOME/dotfiles
 #一番最初に修正
 
 ###-tns-completion-start-###
-if [ -f /Users/yukimatsuyama/.tnsrc ]; then 
-    source /Users/yukimatsuyama/.tnsrc 
+if [ -f /Users/yukimatsuyama/.tnsrc ]; then
+    source /Users/yukimatsuyama/.tnsrc
 fi
 ###-tns-completion-end-###
 export PATH=$HOME/.nodebrew/current/bin:$PATH

@@ -19,12 +19,6 @@ repo = 'cohama/vim-smartinput-endwise'
 [[plugins]] #denite のソース
 repo = 'Shougo/neomru.vim'
 
-[[plugins]] #vim color scheme TODO カラースキームの変更
-repo = 'w0ng/vim-hybrid'
-
-[[plugins]]
-repo = "Haron-Prime/Antares"
-
 # [[plugins]] #windowないの文字列検索 TODO incsearchとの連携 https://github.com/easymotion/vim-easymotion
 # repo = 'easymotion/vim-easymotion'
 
@@ -68,8 +62,4 @@ repo = 'vim-airline/vim-airline'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
-
-[[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
 

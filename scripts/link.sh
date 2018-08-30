@@ -9,7 +9,7 @@ for file in ${files[@]} ; do
     if [ -L ${HOME}/.${file} ]; then
         unlink ${HOME}/.${file}
     elif [ -f ${HOME}/.${file} ]; then
-        mv ${HOME}/.${file} $(HOME)/.$file.$(date "+%Y%m%d_%H%M%S")
+        mv ${HOME}/.${file} ${HOME}/.$file.$(date "+%Y%m%d_%H%M%S")
     fi
     ln -sf ${HOME}/dotfiles/${file} ${HOME}/.${file}
 done
