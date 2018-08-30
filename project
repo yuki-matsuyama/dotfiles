@@ -1,15 +1,4 @@
-project /Users/yukimatsuyama/workspace/emovie
-project /Users/yukimatsuyama/workspace/emovie/tools
-project /Users/yukimatsuyama/workspace/chromy_sample
 project /Users/yukimatsuyama/workspace/wantedly_intern
-project /Users/yukimatsuyama/workspace/docker-visible
-project /Users/yukimatsuyama/workspace/docker-modem
-project /Users/yukimatsuyama/workspace/dockerode
-project /Users/yukimatsuyama/workspace/pomodoro
-project /Users/yukimatsuyama/workspace/homes
-project /Users/yukimatsuyama/workspace/homes/laradock #開発環境用のdirectory sqlが入っているので実行には注意
-project /Users/yukimatsuyama/workspace/homes/themes/kenshin-kenshinschool/assets/js/vue_src #開発環境用のdirectory sqlが入っているので実行には注意
-project /Users/yukimatsuyama/workspace/homes/themes/kenshin-kenshinschool
 project /Users/yukimatsuyama/workspace/tech-blog
 project /Users/yukimatsuyama/workspace/markdown
 project /Users/yukimatsuyama/workspace/
@@ -24,3 +13,4 @@ project /Users/yukimatsuyama/workspace/residential_map/residential_map_infra
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_batch
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_cloud_functions
 project /Users/yukimatsuyama/workspace/residential_map/map_sample
+project /Users/yukimatsuyama/workspace/residential_map/residential_map_spatial_analytics
