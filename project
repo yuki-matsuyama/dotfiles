@@ -5,12 +5,11 @@ project /Users/yukimatsuyama/workspace/
 project /Users/yukimatsuyama/workspace/effective_map
 project /Users/yukimatsuyama/workspace/matterport
 project /Users/yukimatsuyama/workspace/simulation_lp
-project /Users/yukimatsuyama/workspace/residential_map/residential_map
-project /Users/yukimatsuyama/workspace/residential_map/residential_map_web
-project /Users/yukimatsuyama/workspace/residential_map/residential_map_api
-project /Users/yukimatsuyama/workspace/residential_map/residential_map_admin
+project /Users/yukimatsuyama/workspace/go/src/residential_map_api
+project /Users/yukimatsuyama/workspace/go/src/site_map_api
+project /Users/yukimatsuyama/workspace/CatchupApplication/site_map_web
+project /Users/yukimatsuyama/workspace/residential_map/map_sample
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_infra
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_batch
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_cloud_functions
-project /Users/yukimatsuyama/workspace/residential_map/map_sample
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_spatial_analytics
