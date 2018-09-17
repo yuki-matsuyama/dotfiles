@@ -7,6 +7,8 @@ fi
 source ~/.oh-my-zsh/themes/blinks.zsh-theme
 alias vi=/usr/local/bin/vim
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
+alias kindle="open ~/Library/Containers/com.amazon.Kindle/Data/Library/Application Support/Kindle/My Kindle Content"
+alias connect="ssh -i ~/.ssh/gcp_working -N yuki.matsuyama0123@35.200.60.220 -L 61111:35.200.60.220:22  -N -v"
 # alias python="python3"
 plugins=(git)
 
@@ -27,6 +29,7 @@ fcd() {
     local dir
     dir=$(ag '^project [^*]' ~/.project | cut -d ' ' -f 2 | fzf)
     cd "$dir"
+    code "$dir"
 }
 
 fmake(){
@@ -49,18 +52,19 @@ export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
 export PYENV_ROOT="$HOME/.pyenv"
 # GOPATHの設定
 export GOPATH=$HOME/workspace/go
+export GOROOT=$HOME/workspace/go
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
 # ここでローカルで用意したものとgcp系のコマンドにPATHを通す
 export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
-export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$GOPATH/bin:
+export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$GOPATH/bin:$HOME/dotfiles/FlameGraph:
 export TERM='xterm-256color'
-# export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/residential-map/residential-maps-680ddd917cb0.json
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/analyze-residential-62968daf039a.json
+# export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/local-database-access.json
 
 ###-tns-completion-start-###
 if [ -f /Users/yukimatsuyama/.tnsrc ]; then
     source /Users/yukimatsuyama/.tnsrc
 fi
 
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"

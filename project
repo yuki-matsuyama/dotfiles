@@ -13,3 +13,5 @@ project /Users/yukimatsuyama/workspace/residential_map/residential_map_infra
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_batch
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_cloud_functions
 project /Users/yukimatsuyama/workspace/residential_map/residential_map_spatial_analytics
+project /Users/yukimatsuyama/workspace/go/src/daily_training
+project /Users/yukimatsuyama/workspace/go/src/isucon
