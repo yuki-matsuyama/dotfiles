@@ -52,7 +52,7 @@ export LD_LIBRARY_PATH=${HOME}/local/lib:$LD_LIBRARY_PATH
 export PYENV_ROOT="$HOME/.pyenv"
 # GOPATHの設定
 export GOPATH=$HOME/workspace/go
-export GOROOT=$HOME
+export GOROOT=$HOME/workspace/go
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 eval "$(goenv init -)"
