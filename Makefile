@@ -132,4 +132,14 @@ dump-memcache: # memcacheの中身を取得
 dump-tcpdump: # wiresharkで解析するためのデータを取得
 	sudo tcpdump -A port 8080
 
+tmux-new-work-session: # tmux-attach work session
+	tmux new -s work
+
+tmux-attach-work-session: # tmux-attach work session
+	tmux a -t work
+
+tmux-sync-operation-git: # tmux-sync operation
+	chmod +x $(HOME)/dotfiles/scripts/tmux-sync.sh
+	echo "$(HOME)/dotfiles/scripts/tmux-sync.sh | sh"
+
 .PHONY: log

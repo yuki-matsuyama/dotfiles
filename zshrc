@@ -18,11 +18,27 @@ plugins=(git)
 # 3. 式の評価$()を使いましょう
 # 4. OSに依存するならOSTYPEを使用する
 fmakel(){
-      cat ./Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf | xargs -o make
+    command=$(cat ./Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf)
+    make $command
+}
+
+ftmux(){
+    if tmux -q has-session 2>/dev/null; then
+        if [ $(tmux list-sessions | wc -l) -gt 0 ]; then
+            sessionname=$(tmux list-sessions | awk '{ print $1}' | sed 's/://g' | fzf)
+            tmux a -t $sessionname
+        else
+            exec tmux new -s Login
+        fi
+    else
+        exec tmux new -s Login
+    fi
 }
 
 fssh() {
-  ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | xargs ssh
+    sshname=$(ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf)
+    echo $sshname
+    ssh $sshname
 }
 
 fcd() {
@@ -56,6 +72,7 @@ export GOROOT=$HOME/workspace/go
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 eval "$(goenv init -)"
+eval "$(direnv hook zsh)"
 # ここでローカルで用意したものとgcp系のコマンドにPATHを通す
 export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfiles/google-cloud-sdk/platform/google_appengine/:$PATH
 export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$GOPATH/bin:$HOME/dotfiles/FlameGraph:
