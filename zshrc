@@ -22,6 +22,10 @@ fmakel(){
     make $command
 }
 
+fcat(){
+    fzf --preview 'cat {}'
+}
+
 ftmux(){
     if tmux -q has-session 2>/dev/null; then
         if [ $(tmux list-sessions | wc -l) -gt 0 ]; then
