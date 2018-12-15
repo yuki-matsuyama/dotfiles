@@ -76,3 +76,5 @@ if [ -f /Users/yukimatsuyama/.tnsrc ]; then
 fi
 ###-tns-completion-end-###
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

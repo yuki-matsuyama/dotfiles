@@ -14,9 +14,20 @@ plugins=(git)
 fmakel(){
     # TODO ここで何も洗濯しない場合に一番初めのコマンドが渡される問題を修正
     command=$(cat ./Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf)
-    make $command
+    if [ -z "$command" ]; then
+
+    else
+      make $command
+    fi
 }
 
+fhistory() {
+  command=$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+  eval $command
+}
+
+zle -N fhistory  # _git_status関数をgit_status widgetとして登録
+bindkey '^r' fhistory
 fcat(){
     fzf --preview 'cat {}'
 }
@@ -34,31 +45,29 @@ ftmux(){
     fi
 }
 
-fssh() {
-    sshname=$(ag '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf)
-    echo $sshname
-    ssh $sshname
-}
-
 fcd() {
     local dir
     dir=$(ag '^project [^*]' ~/.project | cut -d ' ' -f 2 | fzf)
     cd "$dir"
-    code "$dir"
+    echo -n "Open in VsCode (y/n)? "
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ] ;then
+      code "$dir"
+    else
+        echo No
+    fi
 }
 
 fmake(){
-    cd $HOME/dotfiles && cat $HOME/dotfiles/Makefile |  grep -v "^#"| grep ":\s"|  awk '{ print $0  }'| sed  -e s/:// | fzf | tr '#' ' ' | awk '{print $(1)}' | xargs -o make
+    cd $HOME/dotfiles
+    command=$(cat $HOME/dotfiles/Makefile |  grep -v "^#"| grep ":\s"|  awk '{ print $0  }'| sed  -e s/:// | fzf | tr '#' ' ' | awk '{print $(1)}')
+    if [ -z "$command" ]; then
+      cd -
+    else
+      make $command && cd -
+    fi
 }
 
-case ${OSTYPE} in
-  darwin*)
-    # ここに Mac 向けの設定
-    ;;
-  linux*)
-    # ここに Linux 向けの設定
-    ;;
-esac
 
 # vim用の環境変数
 export XDG_CONFIG_HOME=$HOME/.config
@@ -77,9 +86,6 @@ export PATH=$HOME/dotfiles/bin/:$HOME/dotfiles/google-cloud-sdk/bin/:$HOME/dotfi
 export PATH=$PYENV_ROOT/bin:$PATH:$HOME/.nodebrew/current/bin:usr/local/sbin:/usr/local/bin:/usr/local:/usr/sbin:/sbin:$GOPATH/bin:$HOME/dotfiles/FlameGraph:
 export TERM='xterm-256color'
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/analyze-residential-62968daf039a.json
-# export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/local-database-access.json
 
-###-tns-completion-start-###
-if [ -f /Users/yukimatsuyama/.tnsrc ]; then
-    source /Users/yukimatsuyama/.tnsrc
-fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

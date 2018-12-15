@@ -150,8 +150,8 @@ set wrap
 set confirm
 set clipboard=unnamed
 set modelines=0
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set number
 set ruler
