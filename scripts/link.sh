@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-files=('editorconfig' 'gemrc' 'gvimrc' 'tigrc' 'tmux.conf' 'vimrc' 'zshenv' 'zpreztorc' 'zshrc' 'bashrc' 'config/dein' 'php_cs' 'docker-command' 'project' 'czrc')
+files=('tmux.conf' 'vimrc' 'zshrc' 'config/dein' 'php_cs' 'project')
 
 mkdir -p ${HOME}/.config
 for file in ${files[@]} ; do

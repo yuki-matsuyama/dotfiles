@@ -9,15 +9,10 @@ alias vi=/usr/local/bin/vim
 alias php-cs="php-cs-fixer fix --config=${HOME}/dotfiles/php_cs --allow-risky=yes"
 alias kindle="open ~/Library/Containers/com.amazon.Kindle/Data/Library/Application Support/Kindle/My Kindle Content"
 alias connect="ssh -i ~/.ssh/gcp_working -N yuki.matsuyama0123@35.200.60.220 -L 61111:35.200.60.220:22  -N -v"
-# alias python="python3"
 plugins=(git)
 
-# data flow of shellscript
-# 1. データの取得(特定のシステムコマンドもしくはローカルで持つ配列)grep ならagを使った方が良い
-# 2. データの整形置換ならsed 今あるものを編集して保持するならawk データがテーブル形式なら極力cutを使用する
-# 3. 式の評価$()を使いましょう
-# 4. OSに依存するならOSTYPEを使用する
 fmakel(){
+    # TODO ここで何も洗濯しない場合に一番初めのコマンドが渡される問題を修正
     command=$(cat ./Makefile | grep : | grep -v ^#|   sed  -e s/://g | awk '{ print $1  }'| fzf)
     make $command
 }
@@ -88,4 +83,3 @@ export GOOGLE_APPLICATION_CREDENTIALS=$HOME/credentials/gcp/analyze-residential/
 if [ -f /Users/yukimatsuyama/.tnsrc ]; then
     source /Users/yukimatsuyama/.tnsrc
 fi
-

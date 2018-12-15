@@ -139,7 +139,10 @@ tmux-attach-work-session: # tmux-attach work session
 	tmux a -t work
 
 tmux-sync-operation-git: # tmux-sync operation
-	chmod +x $(HOME)/dotfiles/scripts/tmux-sync.sh
-	echo "$(HOME)/dotfiles/scripts/tmux-sync.sh | sh"
+	@chmod +x $(HOME)/dotfiles/scripts/tmux-sync.sh
+	@echo "$(HOME)/dotfiles/scripts/tmux-sync.sh | sh"
+
+memcache: # easy memcache
+	 docker run -d --name memcached -p 11212:11211 memcached
 
 .PHONY: log
